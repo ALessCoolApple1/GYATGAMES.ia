@@ -6,8 +6,9 @@
    </head> 
    <body/>
       <script>
+      var password = "4384";
      (function passcodeprotect() {
-    var passcode = prompt("4384");
+    var passcode = prompt("enter password");
     while (passcode !== password) {
         alert("I didn't give you this site; I know you got it from looking at someone else's computer");
         window.close(); // Close the tab if the password is incorrect
