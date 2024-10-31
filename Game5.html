@@ -1,1 +1,60 @@
-https://mathsedu1510.github.io/g5/class-533
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Sigma</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Window</title>
+    <style>
+        /* Reset default browser margin and padding */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Basic styling for the iframe container */
+        .iframe-container {
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center;     /* Center vertically */
+            height: 100vh;           /* Full viewport height */
+            overflow: hidden;        /* Prevent scrollbar */
+        }
+
+        /* Basic styling for the iframe */
+        iframe {
+            width: 100%;               /* Adjust width as needed */
+            height: 100vh;            /* Half viewport height */
+            border: none;            /* Remove border */
+        }
+    </style>
+</head>
+<body>
+          <script>
+         var password = "0045";
+         (function passcodeprotect() {
+            var passcode = prompt("Enter PassCode");
+            while (passcode !== password) {
+               alert("Incorrect PassCode");
+               return passcodeprotect();
+            }
+         }());
+         alert('Good I guess you are one of the few I gave accses to');
+      </script>
+    <div class="iframe-container">
+        <iframe id="Drive mad" src="https://mathsedu1510.github.io/g5/class-533" title="Drive mad"></iframe>
+    </div>
+
+    <script>
+        // Function to focus the iframe
+        function focusIframe() {
+            const iframe = document.getElementById('game-iframe');
+            iframe.contentWindow.focus(); // Focus the iframe's content window
+        }
+
+        // Add event listener to focus iframe on page load
+        window.addEventListener('load', focusIframe);
+    </script>
+</body>
+</html>
