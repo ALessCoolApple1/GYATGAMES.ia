@@ -38,6 +38,7 @@
             while (passcode !== password) {
                alert("Incorrect PassCode");
                return passcodeprotect();
+                window.close(); // Close the tab if the password is incorrect
             }
          }());
          alert('Good I guess you are one of the few I gave accses to');
