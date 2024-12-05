@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Background Image Example</title>
-    <audio id="sound" src="skibdi2.mp3"></audio>
+    <audio id="sound" src="skibdi2.mp3" autoplay></audio>
     <style>
         body {
             /* Set the background image */
@@ -24,11 +24,12 @@
             color: white;
             padding-top: 20%;
         }
+    </style>
     <script>
-      window.onload = function() {
-        var audio = document.getElementById("myAudio");
-        audio.play();
-      }
+        window.onload = function() {
+            var audio = document.getElementById("sound");  // Use the correct ID
+            audio.play();  // Play the audio when the page loads
+        }
     </script>
 </head>
 </html>
