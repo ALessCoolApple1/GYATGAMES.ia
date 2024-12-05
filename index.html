@@ -20,95 +20,97 @@
    <link rel="stylesheet" href="style.css">
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=0.5">
-   <title>Clickable PNG Image on Grid</title>
-   <style>
-       body {
-           display: flex;
-           justify-content: center;
-           align-items: baseline;
-           height: 75vh;
-           margin: 0;
-           background-color: #f0f0f0;
-           overflow: hidden;        /* Prevent scrollbar */
-       }
-       .grid-container {
-           display: grid;
-           grid-template-columns: repeat(7, 150px); /* Adjust the number of columns */
-           gap: 20px; /* Space between grid items */
-           width: 100%; /* Adjust as needed */
-           transform: translate(75px, 5px); /* Move slightly to the right and down */
-       }
-       .grid-item {
-           border-radius: 15px; /* Rounded corners */
-           overflow: hidden; /* Ensures corners are rounded */
-           box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Optional shadow */
-           transition: transform 0.3s; /* Smooth hover effect*/ 
-       }
-       .grid-item:hover {
-         
-       }
-       img {
-           width: 100%; /* Image takes the full width of the container */
-           height: 100%; /* Maintains aspect ratio */
-       }
-       .text-box {
-        position: absolute;
-        bottom: 0; /* Position the text at the bottom of the box */
-        left: 0;
-        right: 0;
-        background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
-        color: white;
-        padding: 5px;
-        font-size: 14px; /* Adjust text size */
-        text-align: center;
-        font-family: Arial, sans-serif;
-        overflow: hidden; /* Prevents text from overflowing */
-        white-space: nowrap; /* Prevents text from wrapping */
-        text-overflow: ellipsis; /* Adds ellipsis for overflowing text */
-    }
-      .grid-item:hover .text-box {
-        white-space: normal; /* Allow text to wrap when hovering */
-    }
-   </style>
+  <title>Clickable PNG Image on Grid</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: baseline;
+            height: 75vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            overflow: hidden; /* Prevent scrollbar */
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(7, 150px); /* Adjust the number of columns */
+            gap: 20px; /* Space between grid items */
+            width: 100%;
+            transform: translate(75px, 5px); /* Move slightly to the right and down */
+        }
+        .grid-item {
+            position: relative; /* Ensure the text box is positioned relative to the grid item */
+            border-radius: 15px; /* Rounded corners */
+            overflow: hidden; /* Ensures corners are rounded */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Optional shadow */
+            transition: transform 0.3s; /* Smooth hover effect */ 
+        }
+        .grid-item:hover {
+            transform: scale(1.05); /* Optional: Add a hover effect to the grid item */
+        }
+        img {
+            width: 100%; /* Image takes the full width of the container */
+            height: 100%; /* Maintains aspect ratio */
+            object-fit: cover; /* Ensures the image fits properly within the box */
+        }
+        .text-box {
+            position: absolute;
+            bottom: 0; /* Position the text at the bottom of the box */
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+            color: white;
+            padding: 5px;
+            font-size: 14px; /* Adjust text size */
+            text-align: center;
+            font-family: Arial, sans-serif;
+            overflow: hidden; /* Prevents text from overflowing */
+            white-space: normal; /* Allow text to wrap */
+            text-overflow: ellipsis; /* Adds ellipsis for overflowing text */
+            max-height: 40px; /* Restrict height of text box */
+            box-sizing: border-box; /* Ensure padding is included in the height calculation */
+        }
+        .grid-item:hover .text-box {
+            white-space: normal; /* Allow text to wrap when hovering */
+        }
+    </style>
 </head>
 <body>
-   <div class="grid-container">
-       <a href="https://alesscoolapple1.github.io/GYATGAMES.ia/Game1.html" class="grid-item">
-           <img src="https://infinite-craft.co/data/image/game/drive-mad.jpg" alt="Png not loading">
+    <div class="grid-container">
+        <a href="https://alesscoolapple1.github.io/GYATGAMES.ia/Game1.html" class="grid-item">
+            <img src="https://infinite-craft.co/data/image/game/drive-mad.jpg" alt="Png not loading">
             <div class="text-box">Drive mad</div>
-       </a>
-       <a href="https://alesscoolapple1.github.io/GYATGAMES.ia/Game2.html"  class="grid-item">
-           <img src="https://htmlxm.github.io/thumb/n-gon.png" alt="Png not loading">
+        </a>
+        <a href="https://alesscoolapple1.github.io/GYATGAMES.ia/Game2.html" class="grid-item">
+            <img src="https://htmlxm.github.io/thumb/n-gon.png" alt="Png not loading">
             <div class="text-box">N Gon</div>
-       </a>
-       <a href="https://alesscoolapple1.github.io/GYATGAMES.ia/Game3.html"  class="grid-item">
-          <img src="https://m.media-amazon.com/images/I/61M3rDwh4qL._h1_.png" alt="Png not loading">
-           <div class="text-box">Tetri</div>
-       </a>
-       <a href="https://alesscoolapple1.github.io/GYATGAMES.ia/Game4.html"  class="grid-item">
-           <img src="https://img.poki-cdn.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/ba04eca05c362b04deec44651e86e39a.png" alt="Png not loading">
+        </a>
+        <a href="https://alesscoolapple1.github.io/GYATGAMES.ia/Game3.html" class="grid-item">
+            <img src="https://m.media-amazon.com/images/I/61M3rDwh4qL._h1_.png" alt="Png not loading">
+            <div class="text-box">Tetri</div>
+        </a>
+        <a href="https://alesscoolapple1.github.io/GYATGAMES.ia/Game4.html" class="grid-item">
+            <img src="https://img.poki-cdn.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/ba04eca05c362b04deec44651e86e39a.png" alt="Png not loading">
             <div class="text-box">Stackris</div>
-       </a>
-       <a href="https://alesscoolapple1.github.io/GYATGAMES.ia/Game5.html"  class="grid-item">
-           <img src="https://mathsedu1510.github.io/img/class-533.png" alt="Png not loading">
+        </a>
+        <a href="https://alesscoolapple1.github.io/GYATGAMES.ia/Game5.html" class="grid-item">
+            <img src="https://mathsedu1510.github.io/img/class-533.png" alt="Png not loading">
             <div class="text-box">Gunspin</div>
-       </a>
-       </a>
-       <a href="https://alesscoolapple1.github.io/GYATGAMES.ia/Game6.html"  class="grid-item">
-           <img src="https://mathsedu1510.github.io/img/class-448.png" alt="Png not loading">
+        </a>
+        <a href="https://alesscoolapple1.github.io/GYATGAMES.ia/Game6.html" class="grid-item">
+            <img src="https://mathsedu1510.github.io/img/class-448.png" alt="Png not loading">
             <div class="text-box">Cookie Clicker</div>
-       </a>
-      </a>
-      <a href="https://alesscoolapple1.github.io/GYATGAMES.ia/Game7.html" class="grid-item">
-           <img src="https://mathsedu1510.github.io/img/class-450.png" alt="Png not loading">
+        </a>
+        <a href="https://alesscoolapple1.github.io/GYATGAMES.ia/Game7.html" class="grid-item">
+            <img src="https://mathsedu1510.github.io/img/class-450.png" alt="Png not loading">
             <div class="text-box">Slope</div>
-       </a>
-      <a href="https://alesscoolapple1.github.io/GYATGAMES.ia/JoJo-reference.html" class="grid-item">
-           <img src="https://i.pinimg.com/736x/ae/f8/57/aef8577cc3cf2aad6dbb0318248cb1dd.jpg" alt="Png not loading">
-            <div class="text-box">To be contined</div>
-       </a>
-  
-   </div>
+        </a>
+        <a href="https://alesscoolapple1.github.io/GYATGAMES.ia/JoJo-reference.html" class="grid-item">
+            <img src="https://i.pinimg.com/736x/ae/f8/57/aef8577cc3cf2aad6dbb0318248cb1dd.jpg" alt="Png not loading">
+            <div class="text-box">To be continued</div>
+        </a>
+    </div>
+</body>
    <script>
     const sections = document.querySelectorAll("section");
     let currentSection = 0;
