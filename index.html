@@ -51,6 +51,7 @@
         img {
             width: 100%; /* Image takes the full width of the container */
             height: 100%; /* Maintains aspect ratio */
+            border-radius: 15px;
             object-fit: cover; /* Ensures the image fits properly within the box */
         }
         .text-box {
@@ -69,6 +70,7 @@
             text-overflow: ellipsis; 
             max-height: 40px;
             box-sizing: border-box;
+            border-radius: 0 0 15px 15px;
         }
         .grid-item:hover .text-box {
             white-space: normal; /* Allow text to wrap when hovering */
