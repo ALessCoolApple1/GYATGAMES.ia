@@ -52,18 +52,23 @@
            height: 100%; /* Maintains aspect ratio */
        }
        .text-box {
-               position: absolute;
-               bottom: 10px; /* Position the text at the bottom of the box */
-               left: 10px;
-               right: 10px;
-               background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
-               color: white;
-               padding: 5px;
-               border-radius: 5px;
-               font-size: 14px; /* Adjust text size */
-               text-align: center;
-               font-family: Arial, sans-serif;
-            }
+        position: absolute;
+        bottom: 0; /* Position the text at the bottom of the box */
+        left: 0;
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+        color: white;
+        padding: 5px;
+        font-size: 14px; /* Adjust text size */
+        text-align: center;
+        font-family: Arial, sans-serif;
+        overflow: hidden; /* Prevents text from overflowing */
+        white-space: nowrap; /* Prevents text from wrapping */
+        text-overflow: ellipsis; /* Adds ellipsis for overflowing text */
+    }
+      .grid-item:hover .text-box {
+        white-space: normal; /* Allow text to wrap when hovering */
+    }
    </style>
 </head>
 <body>
