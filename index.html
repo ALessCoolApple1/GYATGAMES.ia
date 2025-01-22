@@ -1,22 +1,67 @@
+
+To avoid entering the password every time you visit the page, you can use cookies to store the password once the user enters it correctly. This way, you can check if the user has already passed the password validation and automatically allow access without prompting them again.
+
+Here's how you can modify your code to use cookies:
+
+Set a cookie when the user enters the correct password.
+Check if the cookie exists before prompting the user for the password.
+If the cookie exists and contains the correct password, skip the prompt.
+Updated Code:
+html
+Copy
 <!DOCTYPE html>
 <html>
-   <link rel="stylesheet" href="style.css">
-   <head>
-      <title>I sigma tab please dont close it.</title>
-   </head> 
-   <body style="background-color: rgb(254, 46, 156);">
-      <script>
-         var password = "2190";
-         (function passcodeprotect() {
-            var passcode = prompt("Enter PassCode");
-            while (passcode !== password) {
-               alert("I didnt give you this site I know you get it from looking at someone elses computer");
-               window.close(); // Close the tab if the password is incorrect
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    <title>I sigma tab please don't close it.</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        // Function to set a cookie
+        function setCookie(name, value, days) {
+            var expires = "";
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
             }
-         }());
-         alert('Good I guess you are one of the few I gave accses to');
-      </script>
-      <head>
+            document.cookie = name + "=" + (value || "") + expires + "; path=/";
+        }
+
+        // Function to get a cookie by name
+        function getCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
+        // Function to check if password is correct and set cookie
+        var password = "2190";
+        (function passcodeprotect() {
+            // Check if the 'accessGranted' cookie exists
+            var accessGranted = getCookie("accessGranted");
+
+            // If cookie doesn't exist or password is wrong, prompt for password
+            if (!accessGranted) {
+                var passcode = prompt("Enter PassCode");
+                if (passcode !== password) {
+                    alert("I didn't give you this site I know you get it from looking at someone else's computer");
+                    window.close(); // Close the tab if the password is incorrect
+                } else {
+                    setCookie("accessGranted", "true", 7); // Set the cookie for 7 days
+                    alert('Good, I guess you are one of the few I gave access to');
+                }
+            } else {
+                alert('You are already granted access!');
+            }
+        })();
+    </script>
+</head>
    <link rel="stylesheet" href="style.css">
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=0.5">
