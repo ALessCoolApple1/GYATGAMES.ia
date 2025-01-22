@@ -1,48 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Sigma</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website Window</title>
-    <style>
-        /* Reset default browser margin and padding */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        /* Basic styling for the iframe container */
-        .iframe-container {
-            display: flex;
-            justify-content: center; /* Center horizontally */
-            align-items: center;     /* Center vertically */
-            height: 100vh;           /* Full viewport height */
-            overflow: hidden;        /* Prevent scrollbar */
-        }
-
-        /* Basic styling for the iframe */
-        iframe {
-            width: 100%;               /* Adjust width as needed */
-            height: 100vh;            /* Half viewport height */
-            border: none;            /* Remove border */
-        }
-    </style>
-</head>
-<body>
-          <script>
-         var password = "2190";
-         (function passcodeprotect() {
-            var passcode = prompt("Enter PassCode");
-            while (passcode !== password) {
-               alert("Incorrect PassCode");
-               return passcodeprotect();
-                window.close(); // Close the tab if the password is incorrect
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=0.5">
+        <title>I sigma tab please don't close it.</title>
+        <link rel="stylesheet" href="style.css">
+        <script>
+            // Function to set a cookie
+            function setCookie(name, value, days) {
+                var expires = "";
+                if (days) {
+                    var date = new Date();
+                    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                    expires = "; expires=" + date.toUTCString();
+                }
+                document.cookie = name + "=" + (value || "") + expires + "; path=/";
             }
-         }());
-         alert('Good I guess you are one of the few I gave accses to');
-      </script>
+
+            // Function to get a cookie by name
+            function getCookie(name) {
+                var nameEQ = name + "=";
+                var ca = document.cookie.split(';');
+                for (var i = 0; i < ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+                }
+                return null;
+            }
+
+            // Function to check if password is correct and set cookie
+            var password = "2190";
+            (function passcodeprotect() {
+                // Check if the 'accessGranted' cookie exists
+                var accessGranted = getCookie("accessGranted");
+
+                // If cookie doesn't exist or password is wrong, prompt for password
+                if (!accessGranted) {
+                    var passcode = prompt("Enter PassCode");
+                    if (passcode !== password) {
+                        alert("I didn't give you this site I know you get it from looking at someone else's computer");
+                        window.close(); // Close the tab if the password is incorrect
+                    } else {
+                        setCookie("accessGranted", "true", 7); // Set the cookie for 7 days
+                        alert('Good, I guess you are one of the few I gave access to');
+                    }
+                } else {
+                    alert('You are already granted access!');
+                }
+            })();
+        </script>
     <div class="iframe-container">
         <iframe id="stacktris" src="https://artedu1808.github.io/g7/tetris-flash" title="stacktris"></iframe>
     </div>
