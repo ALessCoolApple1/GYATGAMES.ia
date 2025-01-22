@@ -50,12 +50,32 @@
                 }
             })();
         </script>
+        <style>
+            /* Ensure body and html take up full height and have no margin */
+            html, body {
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                overflow: hidden; /* Prevent scrolling */
+            }
+
+            /* Make sure iframe takes up the full screen */
+            .iframe-container {
+                width: 100%;
+                height: 100%;
+            }
+
+            iframe {
+                width: 100%;
+                height: 100%;
+                border: none;
+            }
+        </style>
     </head>
 
     <body>
         <div class="iframe-container">
-            <!-- Updated iframe with style for width and height -->
-            <iframe id="Drive mad" src="https://mathsedu1510.github.io/g20/class-401/" title="Drive mad" style="width: 100%; height: 500px;"></iframe>
+            <iframe id="Drive mad" src="https://mathsedu1510.github.io/g20/class-401/" title="Drive mad"></iframe>
         </div>
 
         <script>
