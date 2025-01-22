@@ -3,7 +3,6 @@
         <meta charset="UTF-8">
         <!-- Updated meta tag for viewport -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
         <title>I sigma tab please don't close it.</title>
         <link rel="stylesheet" href="style.css">
         <script>
@@ -51,19 +50,24 @@
                 }
             })();
         </script>
-    <div class="iframe-container">
-        <iframe id="Drive mad" src="https://mathsedu1510.github.io/g20/class-401/" title="Drive mad"></iframe>
-    </div>
+    </head>
 
-    <script>
-        // Function to focus the iframe
-        function focusIframe() {
-            const iframe = document.getElementById('game-iframe');
-            iframe.contentWindow.focus(); // Focus the iframe's content window
-        }
+    <body>
+        <div class="iframe-container">
+            <!-- Updated iframe with style for width and height -->
+            <iframe id="Drive mad" src="https://mathsedu1510.github.io/g20/class-401/" title="Drive mad" style="width: 100%; height: 500px;"></iframe>
+        </div>
 
-        // Add event listener to focus iframe on page load
-        window.addEventListener('load', focusIframe);
-    </script>
-</body>
+        <script>
+            // Function to focus the iframe
+            function focusIframe() {
+                const iframe = document.getElementById('Drive mad');  // Corrected ID reference
+                iframe.contentWindow.focus(); // Focus the iframe's content window
+            }
+
+            // Add event listener to focus iframe on page load
+            window.addEventListener('load', focusIframe);
+        </script>
+    </body>
 </html>
+
