@@ -1,6 +1,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <!-- Updated meta tag for viewport -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>I sigma tab please don't close it.</title>
         <link rel="stylesheet" href="style.css">
@@ -49,19 +50,43 @@
                 }
             })();
         </script>
-    <div class="iframe-container">
-        <iframe id="Drive mad" src="https://mathsedu1510.github.io/g5/class-533" title="Drive mad"></iframe>
-    </div>
+        <style>
+            /* Ensure body and html take up full height and have no margin */
+            html, body {
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                overflow: hidden; /* Prevent scrolling */
+            }
 
-    <script>
-        // Function to focus the iframe
-        function focusIframe() {
-            const iframe = document.getElementById('game-iframe');
-            iframe.contentWindow.focus(); // Focus the iframe's content window
-        }
+            /* Make sure iframe takes up the full screen */
+            .iframe-container {
+                width: 100%;
+                height: 100%;
+            }
 
-        // Add event listener to focus iframe on page load
-        window.addEventListener('load', focusIframe);
-    </script>
-</body>
+            iframe {
+                width: 100%;
+                height: 100%;
+                border: none;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="iframe-container">
+            <iframe id="Drive mad" src="https://mathsedu1510.github.io/g5/class-533" title="Drive mad"></iframe>
+        </div>
+
+        <script>
+            // Function to focus the iframe
+            function focusIframe() {
+                const iframe = document.getElementById('Drive mad');  // Corrected ID reference
+                iframe.contentWindow.focus(); // Focus the iframe's content window
+            }
+
+            // Add event listener to focus iframe on page load
+            window.addEventListener('load', focusIframe);
+        </script>
+    </body>
 </html>
