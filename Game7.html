@@ -1,11 +1,12 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <!-- Updated meta tag for viewport -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>I sigma tab please don't close it.</title>
         <link rel="stylesheet" href="style.css">
         <script>
-            // Function to set a cookie
+
             function setCookie(name, value, days) {
                 var expires = "";
                 if (days) {
@@ -16,7 +17,7 @@
                 document.cookie = name + "=" + (value || "") + expires + "; path=/";
             }
 
-            // Function to get a cookie by name
+        
             function getCookie(name) {
                 var nameEQ = name + "=";
                 var ca = document.cookie.split(';');
@@ -28,20 +29,20 @@
                 return null;
             }
 
-            // Function to check if password is correct and set cookie
+    
             var password = "2190";
             (function passcodeprotect() {
-                // Check if the 'accessGranted' cookie exists
+        
                 var accessGranted = getCookie("accessGranted");
 
-                // If cookie doesn't exist or password is wrong, prompt for password
+            
                 if (!accessGranted) {
                     var passcode = prompt("Enter PassCode");
                     if (passcode !== password) {
                         alert("I didn't give you this site I know you get it from looking at someone else's computer");
-                        window.close(); // Close the tab if the password is incorrect
+                        window.close(); 
                     } else {
-                        setCookie("accessGranted", "true", 7); // Set the cookie for 7 days
+                        setCookie("accessGranted", "true", 7);
                         alert('Good, I guess you are one of the few I gave access to');
                     }
                 } else {
@@ -49,19 +50,39 @@
                 }
             })();
         </script>
-    <div class="iframe-container">
-        <iframe id="Drive mad" src="https://mathsedu1510.github.io/g5/class-450/" title="Drive mad"></iframe>
-    </div>
+        <style>
+            html, body {
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                overflow: hidden; 
+            }
 
-    <script>
-        // Function to focus the iframe
-        function focusIframe() {
-            const iframe = document.getElementById('game-iframe');
-            iframe.contentWindow.focus(); // Focus the iframe's content window
-        }
+           
+            .iframe-container {
+                width: 100%;
+                height: 100%;
+            }
 
-        // Add event listener to focus iframe on page load
-        window.addEventListener('load', focusIframe);
-    </script>
-</body>
+            iframe {
+                width: 100%;
+                height: 100%;
+                border: none;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="iframe-container">
+            <iframe id="Drive mad" src="https://mathsedu1510.github.io/g5/class-450/" title="Drive mad"></iframe>
+        </div>
+
+        <script>
+            function focusIframe() {
+                const iframe = document.getElementById('Drive mad');
+                iframe.contentWindow.focus();
+            }
+            window.addEventListener('load', focusIframe);
+        </script>
+    </body>
 </html>
