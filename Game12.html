@@ -1,26 +1,4 @@
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <!-- Updated meta tag for viewport -->
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>I sigma tab please don't close it.</title>
-        <link rel="stylesheet" href="style.css">
-        <script>
-
-            function setCookie(name, value, days) {
-                var expires = "";
-                if (days) {
-                    var date = new Date();
-                    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-                    expires = "; expires=" + date.toUTCString();
-                }
-                document.cookie = name + "=" + (value || "") + expires + "; path=/";
-            }
-
-        
-            function getCookie(name) {
-                var nameEQ = name + "=";
-                var ca = document.cookie.split(';');
+             var ca = document.cookie.split(';');
                 for (var i = 0; i < ca.length; i++) {
                     var c = ca[i];
                     while (c.charAt(0) == ' ') c = c.substring(1, c.length);
@@ -29,20 +7,20 @@
                 return null;
             }
 
-    
+            // Function to check if password is correct and set cookie
             var password = "2190";
             (function passcodeprotect() {
-        
+                // Check if the 'accessGranted' cookie exists
                 var accessGranted = getCookie("accessGranted");
 
-            
+                // If cookie doesn't exist or password is wrong, prompt for password
                 if (!accessGranted) {
                     var passcode = prompt("Enter PassCode");
                     if (passcode !== password) {
                         alert("I didn't give you this site I know you get it from looking at someone else's computer");
-                        window.close(); 
+                        window.close(); // Close the tab if the password is incorrect
                     } else {
-                        setCookie("accessGranted", "true", 7);
+                        setCookie("accessGranted", "true", 7); // Set the cookie for 7 days
                         alert('Good, I guess you are one of the few I gave access to');
                     }
                 } else {
@@ -51,14 +29,15 @@
             })();
         </script>
         <style>
+            /* Ensure body and html take up full height and have no margin */
             html, body {
                 height: 100%;
                 margin: 0;
                 padding: 0;
-                overflow: hidden; 
+                overflow: hidden; /* Prevent scrolling */
             }
 
-           
+            /* Make sure iframe takes up the full screen */
             .iframe-container {
                 width: 100%;
                 height: 100%;
@@ -74,14 +53,17 @@
 
     <body>
         <div class="iframe-container">
-            <iframe id="Drive mad" src="https://labgstore311.github.io/g5/class-501/" title="Drive mad"></iframe>
+            <iframe id="Drive mad" src="https://labgstore311.github.io/g97/class-784/" title="Drive mad"></iframe>
         </div>
 
         <script>
+            // Function to focus the iframe
             function focusIframe() {
-                const iframe = document.getElementById('Drive mad');
-                iframe.contentWindow.focus();
+                const iframe = document.getElementById('Drive mad');  // Corrected ID reference
+                iframe.contentWindow.focus(); // Focus the iframe's content window
             }
+
+            // Add event listener to focus iframe on page load
             window.addEventListener('load', focusIframe);
         </script>
     </body>
