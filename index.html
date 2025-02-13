@@ -50,63 +50,55 @@
                 }
             })();
         </script>
-   <link rel="stylesheet" href="style.css">
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=0.5">
-  <title>Clickable PNG Image on Grid</title>
+   <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Game Grid</title>
     <style>
         body {
             display: flex;
             justify-content: center;
-            align-items: baseline;
-            height: 75vh;
+            align-items: center;
+            min-height: 100vh;
             margin: 0;
             background-color: #f0f0f0;
-            overflow: hidden; /* Prevent scrollbar */
         }
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(7, 150px); /* Adjust the number of columns */
-            gap: 20px; /* Space between grid items */
-            width: 100%;
-            transform: translate(75px, 5px); /* Move slightly to the right and down */
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Adjusts to screen size */
+            gap: 10px;
+            width: 90%;
+            max-width: 1200px;
+            padding: 10px;
         }
         .grid-item {
-            position: relative; /* position text boxto the grid item */
-            border-radius: 14.75px; /* Rounded corners */
-            overflow: hidden; /*corners are rounded */
+            position: relative;
+            border-radius: 14.75px;
+            overflow: hidden;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s; /* Smooth hover effect */ 
+            transition: transform 0.3s;
         }
         .grid-item:hover {
-            transform: scale(1.05); /*hover effect to the grid item */
+            transform: scale(1.05);
         }
         img {
-            width: 100%; /* Image takes the full width of the container */
-            height: 100%; /* Maintains aspect ratio */
-            border-radius: 15px;
-            object-fit: cover; /* Ensures the image fits properly within the box */
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         .text-box {
             position: absolute;
-            bottom: 0; /* Position the text at the bottom of the box */
+            bottom: 0;
             left: 0;
             right: 0;
-            background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+            background-color: rgba(0, 0, 0, 0.6);
             color: white;
             padding: 5px;
-            font-size: 14px; /* Adjust text size */
+            font-size: 14px;
             text-align: center;
             font-family: Arial, sans-serif;
-            overflow: hidden; /* Prevents text from overflowing */
-            white-space: normal; /* Allow text to wrap */
-            text-overflow: ellipsis; 
-            max-height: 40px;
-            box-sizing: border-box;
-            border-radius: 0 0 0px 0px;
-        }
-        .grid-item:hover .text-box {
-            white-space: normal; /* Allow text to wrap when hovering */
         }
     </style>
 </head>
