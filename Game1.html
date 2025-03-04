@@ -40,44 +40,10 @@
                     var passcode = prompt("Enter PassCode");
 
                     // Check if passcode is empty or incorrect
-                    if (passcode === null || passcode === "" || passcode !== password) {  // <-- Corrected check for empty input and wrong password
-                        alert("I didn't give you this site I know you get it from looking at someone else's computer");
-                        window.close(); // Close the tab if the password is incorrect or empty
+                    if (passcode === null || passcode === "" || passcode !== password) {
+                        alert("I didn't give you this site. I know you got it from looking at someone else's computer");
+
+                        // Hide the iframe if the password is incorrect
+                        document.getElementById("iframe-container").style.display = 'none';
                     } else {
-                        setCookie("accessGranted", "true", 7); // Set the cookie for 7 days
-                        alert('Good, I guess you are one of the few I gave access to');
-                    }
-                } else {
-                    alert('You are already granted access!');
-                }
-            })();
-        </script>
-        <style>
-            /* Ensure body and html take up full height and have no margin */
-            html, body {
-                height: 100%;
-                margin: 0;
-                padding: 0;
-                overflow: hidden; /* Prevent scrolling */
-            }
-
-            /* Make sure iframe takes up the full screen */
-            .iframe-container {
-                width: 100%;
-                height: 100%;
-            }
-
-            iframe {
-                width: 100%;
-                height: 100%;
-                border: none;
-            }
-        </style>
-    </head>
-
-    <body>
-        <div class="iframe-container">
-            <iframe id="Drive mad" src="https://mathsedu1510.github.io/g20/class-401/" title="Drive mad"></iframe>
-        </div>
-    </body>
-</html>
+                    
