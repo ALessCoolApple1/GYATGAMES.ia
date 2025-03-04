@@ -39,7 +39,7 @@
             
                 if (!accessGranted) {
                     var passcode = prompt("Enter PassCode");
-                    if (passcode !== password) {
+                    if (!passcode || passcode !== password) {
                         alert("I didn't give you this site I know you get it from looking at someone else's computer");
                         window.close(); 
                     } else {
