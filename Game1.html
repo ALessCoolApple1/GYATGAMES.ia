@@ -43,7 +43,49 @@
                     if (passcode === null || passcode === "" || passcode !== password) {
                         alert("I didn't give you this site. I know you got it from looking at someone else's computer");
 
-                        // Hide the iframe if the password is incorrect
-                        document.getElementById("iframe-container").style.display = 'none';
+                        // Prevent the iframe from loading by not setting the src attribute
+                        document.getElementById("DriveMadIframe").src = ""; // Clear the iframe src
                     } else {
-                    
+                        setCookie("accessGranted", "true", 7); // Set the cookie for 7 days
+                        alert('Good, I guess you are one of the few I gave access to');
+                        
+                        // Set the iframe src to show the content after successful password entry
+                        document.getElementById("DriveMadIframe").src = "https://mathsedu1510.github.io/g20/class-401/";
+                    }
+                } else {
+                    alert('You are already granted access!');
+                    // If access is already granted, ensure the iframe is displayed by setting the src
+                    document.getElementById("DriveMadIframe").src = "https://mathsedu1510.github.io/g20/class-401/";
+                }
+            })();
+        </script>
+        <style>
+            /* Ensure body and html take up full height and have no margin */
+            html, body {
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                overflow: hidden; /* Prevent scrolling */
+            }
+
+            /* Make sure iframe takes up the full screen */
+            .iframe-container {
+                width: 100%;
+                height: 100%;
+            }
+
+            iframe {
+                width: 100%;
+                height: 100%;
+                border: none;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="iframe-container">
+            <!-- Initially, the iframe src is empty until the password is correct -->
+            <iframe id="DriveMadIframe" src="" title="Drive mad"></iframe>
+        </div>
+    </body>
+</html>
