@@ -38,9 +38,11 @@
                 // If cookie doesn't exist or password is wrong, prompt for password
                 if (!accessGranted) {
                     var passcode = prompt("Enter PassCode");
-                    if (!passcode || passcode !== password) {
+
+                    // Check if passcode is empty or incorrect
+                    if (passcode === null || passcode === "" || passcode !== password) {  // <-- Corrected check for empty input and wrong password
                         alert("I didn't give you this site I know you get it from looking at someone else's computer");
-                        window.close(); // Close the tab if the password is incorrect
+                        window.close(); // Close the tab if the password is incorrect or empty
                     } else {
                         setCookie("accessGranted", "true", 7); // Set the cookie for 7 days
                         alert('Good, I guess you are one of the few I gave access to');
@@ -77,16 +79,5 @@
         <div class="iframe-container">
             <iframe id="Drive mad" src="https://mathsedu1510.github.io/g20/class-401/" title="Drive mad"></iframe>
         </div>
-
-        <script>
-            // Function to focus the iframe
-            function focusIframe() {
-                const iframe = document.getElementById('Drive mad');  // Corrected ID reference
-                iframe.contentWindow.focus(); // Focus the iframe's content window
-            }
-
-            // Add event listener to focus iframe on page load
-            window.addEventListener('load', focusIframe);
-        </script>
     </body>
 </html>
