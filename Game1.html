@@ -1,7 +1,6 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <!-- Updated meta tag for viewport -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>I sigma tab please don't close it.</title>
         <link rel="stylesheet" href="style.css">
@@ -29,33 +28,32 @@
                 return null;
             }
 
-            // Function to check if password is correct and set cookie
+            // Password validation and setting the cookie
             var password = "2190";
             (function passcodeprotect() {
                 // Check if the 'accessGranted' cookie exists
                 var accessGranted = getCookie("accessGranted");
 
-                // If cookie doesn't exist or password is wrong, prompt for password
-                if (!accessGranted) {
+                // If cookie exists, show iframe content
+                if (accessGranted) {
+                    // Set the iframe src to the content page
+                    document.getElementById("DriveMadIframe").src = "https://mathsedu1510.github.io/g20/class-401/";
+                    document.getElementById("iframe-container").style.display = "block"; // Show the iframe container
+                } else {
+                    // If no access, prompt for password
                     var passcode = prompt("Enter PassCode");
 
-                    // Check if passcode is empty or incorrect
+                    // Check if passcode is incorrect or empty
                     if (passcode === null || passcode === "" || passcode !== password) {
-                        alert("I didn't give you this site. I know you got it from looking at someone else's computer");
-
-                        // Prevent the iframe from loading by not setting the src attribute
-                        document.getElementById("DriveMadIframe").src = ""; // Clear the iframe src
+                        alert("Incorrect password. Access denied.");
                     } else {
                         setCookie("accessGranted", "true", 7); // Set the cookie for 7 days
-                        alert('Good, I guess you are one of the few I gave access to');
-                        
-                        // Set the iframe src to show the content after successful password entry
+                        alert('Correct password. You now have access.');
+
+                        // Now, show the iframe
                         document.getElementById("DriveMadIframe").src = "https://mathsedu1510.github.io/g20/class-401/";
+                        document.getElementById("iframe-container").style.display = "block"; // Show the iframe container
                     }
-                } else {
-                    alert('You are already granted access!');
-                    // If access is already granted, ensure the iframe is displayed by setting the src
-                    document.getElementById("DriveMadIframe").src = "https://mathsedu1510.github.io/g20/class-401/";
                 }
             })();
         </script>
@@ -65,13 +63,14 @@
                 height: 100%;
                 margin: 0;
                 padding: 0;
-                overflow: hidden; /* Prevent scrolling */
+                overflow: hidden;
             }
 
-            /* Make sure iframe takes up the full screen */
+            /* Initially hide the iframe container */
             .iframe-container {
                 width: 100%;
                 height: 100%;
+                display: none; /* Hide iframe initially */
             }
 
             iframe {
@@ -83,8 +82,8 @@
     </head>
 
     <body>
-        <div class="iframe-container">
-            <!-- Initially, the iframe src is empty until the password is correct -->
+        <!-- Wrap the iframe in a container that is initially hidden -->
+        <div class="iframe-container" id="iframe-container">
             <iframe id="DriveMadIframe" src="" title="Drive mad"></iframe>
         </div>
     </body>
