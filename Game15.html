@@ -1,1 +1,84 @@
 https://myschoolisass.github.io/tm/
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>I sigma tab please don't close it.</title>
+        <link rel="stylesheet" href="style.css">
+        <script>
+            // Function to set a cookie
+            function setCookie(name, value, days) {
+                var expires = "";
+                if (days) {
+                    var date = new Date();
+                    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                    expires = "; expires=" + date.toUTCString();
+                }
+                document.cookie = name + "=" + (value || "") + expires + "; path=/";
+            }
+
+       
+            function getCookie(name) {
+                var nameEQ = name + "=";
+                var ca = document.cookie.split(';');
+                for (var i = 0; i < ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+                }
+                return null;
+            }
+
+           
+            var password = "2190";
+            (function passcodeprotect() {
+                
+                var accessGranted = getCookie("accessGranted");
+
+             
+                if (accessGranted) {
+                    document.getElementById("DriveMadIframe").src = "https://myschoolisass.github.io/tm/";
+                    document.getElementById("iframe-container").style.display = "block"; // Show the iframe container
+                } else {
+                    var passcode = prompt("Enter PassCode");
+
+                    if (passcode === null || passcode === "" || passcode !== password) {
+                        alert("Incorrect password. Access denied.");
+                    } else {
+                        setCookie("accessGranted", "true", 7);
+                        alert('Correct password. You now have access.');
+
+                        document.getElementById("DriveMadIframe").src = "https://mathsedu1510.github.io/g20/class-401/";
+                        document.getElementById("iframe-container").style.display = "block"; 
+                    }
+                }
+            })();
+        </script>
+        <style>
+            html, body {
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+            }
+
+            .iframe-container {
+                width: 100%;
+                height: 100%;
+                display: none; 
+            }
+
+            iframe {
+                width: 100%;
+                height: 100%;
+                border: none;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="iframe-container" id="iframe-container">
+            <iframe id="DriveMadIframe" src="" title="Drive mad"></iframe>
+        </div>
+    </body>
+</html>
