@@ -3,88 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Real-Time Chat with Firebase</title>
+    <title>Firebase Chat</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f4f4f4;
-        }
-        .chat-container {
-            width: 400px;
-            background: #fff;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        .messages {
+        #messages {
             height: 300px;
             overflow-y: auto;
+            border: 1px solid #ccc;
             padding: 10px;
-            border-bottom: 1px solid #ddd;
-        }
-        .input-container {
-            display: flex;
-            padding: 10px;
-        }
-        .input-container input {
-            width: 80%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 14px;
-        }
-        .input-container button {
-            width: 20%;
-            padding: 10px;
-            border: none;
-            background-color: #4CAF50;
-            color: white;
-            font-size: 14px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .input-container button:hover {
-            background-color: #45a049;
         }
         .message {
-            margin: 5px 0;
-            padding: 8px;
-            border-radius: 10px;
-        }
-        .user-message {
-            background-color: #DCF8C6;
-            text-align: right;
-        }
-        .bot-message {
+            margin: 10px 0;
+            padding: 5px;
             background-color: #f1f1f1;
-            text-align: left;
         }
     </style>
 </head>
 <body>
+    <h1>Real-Time Firebase Chat</h1>
 
-    <div class="chat-container">
-        <div class="messages" id="messages">
-            <!-- Messages will be displayed here -->
-        </div>
-        <div class="input-container">
-            <input type="text" id="messageInput" placeholder="Type a message..." />
-            <button onclick="sendMessage()">Send</button>
-        </div>
-    </div>
+    <!-- Chat container -->
+    <div id="messages"></div> <!-- Messages will appear here -->
 
-    <!-- Firebase SDK -->
+    <!-- Input and send button -->
+    <input type="text" id="messageInput" placeholder="Type a message..." />
+    <button onclick="sendMessage()">Send</button>
+
+    <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
 
     <script>
-        // Firebase configuration
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "firebase/app";
+        import { getDatabase, ref, push, onChildAdded } from "firebase/database";
+        
+        // Your web app's Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyCZYM5K_AUf0pH1xtmAz2jTRSZFx_QWdYo",
             authDomain: "message-app-f32c9.firebaseapp.com",
@@ -100,38 +53,40 @@
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
 
-        // Function to send a message
+        // Function to send a message to Firebase
         function sendMessage() {
             const inputField = document.getElementById('messageInput');
-            const messageText = inputField.value.trim();
+            const messageText = inputField.value.trim();  // Get the message text from input field
 
             if (messageText !== "") {
-                // Get a reference to the 'messages' node in your database
-                const messagesRef = ref(database, 'messages');
+                const messagesRef = ref(database, 'messages');  // Get the messages reference in the database
 
-                // Push the message data into Firebase
+                // Push the message to Firebase
                 push(messagesRef, {
                     text: messageText,
-                    timestamp: Date.now()
+                    timestamp: Date.now() // Add a timestamp for sorting
                 });
 
-                inputField.value = ''; // Clear the input field
+                inputField.value = ''; // Clear input field after sending
             }
         }
 
-        // Listen for new messages in Firebase
+        // Listen for incoming messages in real-time
         const messagesRef = ref(database, 'messages');
         onChildAdded(messagesRef, (snapshot) => {
-            const message = snapshot.val();
+            const message = snapshot.val();  // Get the new message
+
+            // Create a new div element for the message
             const messageElement = document.createElement('div');
-            messageElement.classList.add('message', 'user-message');
-            messageElement.textContent = message.text;
+            messageElement.classList.add('message');
+            messageElement.textContent = message.text;  // Display the message text
 
             const messagesContainer = document.getElementById('messages');
             messagesContainer.appendChild(messageElement);
+
+            // Scroll to the bottom of the chat
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         });
     </script>
-
 </body>
 </html>
