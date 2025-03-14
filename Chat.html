@@ -3,89 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Firebase Chat</title>
+    <title>Chat Application</title>
     <style>
-        #messages {
-            height: 300px;
-            overflow-y: auto;
-            border: 1px solid #ccc;
-            padding: 10px;
-        }
-        .message {
-            margin: 10px 0;
-            padding: 5px;
-            background-color: #f1f1f1;
-        }
+        /* Add your styles here */
     </style>
 </head>
 <body>
-    <h1>Real-Time Firebase Chat</h1>
+    <h1>Chat Room</h1>
 
-    <!-- Display messages here -->
-    <div id="messages"></div> 
+    <!-- Username input field -->
+    <div id="username-container">
+        <label for="username">Enter your name:</label>
+        <input type="text" id="username" placeholder="Your Name" required>
+        <button onclick="setUsername()">Set Username</button>
+    </div>
 
-    <!-- Message input and send button -->
-    <input type="text" id="messageInput" placeholder="Type a message..." />
-    <button onclick="sendMessage()">Send</button>
+    <!-- Chat container -->
+    <div id="messages" style="height: 300px; overflow-y: scroll; border: 1px solid #ccc; padding: 10px;">
+        <!-- Messages will appear here -->
+    </div>
 
-    <!-- Firebase SDKs -->
-    <!-- Use Firebase Version 8 for non-modular script -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <!-- Message input field and send button -->
+    <input type="text" id="message" placeholder="Type a message..." disabled>
+    <button onclick="sendMessage()" id="sendButton" disabled>Send</button>
 
+    <!-- Include Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js"></script>
+
+    <!-- Your Firebase configuration -->
     <script>
-        // Your Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyCZYM5K_AUf0pH1xtmAz2jTRSZFx_QWdYo",
-            authDomain: "message-app-f32c9.firebaseapp.com",
-            databaseURL: "https://message-app-f32c9-default-rtdb.firebaseio.com",
-            projectId: "message-app-f32c9",
-            storageBucket: "message-app-f32c9.firebasestorage.app",
-            messagingSenderId: "25879808002",
-            appId: "1:25879808002:web:cf4ac8bc72617eb59cff1b",
-            measurementId: "G-N010EWNYQH"
-        };
-
         // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+            databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT_ID.appspot.com",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+        const app = firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
-        // Send message to Firebase
-        function sendMessage() {
-            const inputField = document.getElementById('messageInput');
-            const messageText = inputField.value.trim();
+        let username = null;
 
-            if (messageText !== "") {
-                const messagesRef = firebase.database().ref('messages');
-
-                // Push message to Firebase
-                messagesRef.push({
-                    text: messageText,
-                    timestamp: Date.now()  // Add timestamp for ordering
-                });
-
-                // Clear the input field after sending the message
-                inputField.value = '';
+        // Set the username
+        function setUsername() {
+            username = document.getElementById('username').value.trim();
+            if (username) {
+                document.getElementById('username-container').style.display = 'none';
+                document.getElementById('message').disabled = false;
+                document.getElementById('sendButton').disabled = false;
+            } else {
+                alert('Please enter a valid name.');
             }
         }
 
-        // Listen for new messages in real-time
-        const messagesRef = firebase.database().ref('messages');
-        messagesRef.on('child_added', (snapshot) => {
-            const message = snapshot.val();  // Retrieve the message data
+        // Send message to Firebase
+        function sendMessage() {
+            const messageText = document.getElementById('message').value.trim();
+            if (messageText && username) {
+                // Push message with name and message content
+                const messagesRef = database.ref('messages');
+                messagesRef.push({
+                    name: username,
+                    text: messageText
+                });
 
-            // Create a new div for the message
+                document.getElementById('message').value = ''; // Clear message input
+            }
+        }
+
+        // Listen for new messages and display them
+        const messagesRef = database.ref('messages');
+        messagesRef.on('child_added', function(snapshot) {
+            const message = snapshot.val();
             const messageElement = document.createElement('div');
-            messageElement.classList.add('message');
-            messageElement.textContent = message.text;  // Display message text
+            messageElement.textContent = `${message.name}: ${message.text}`;
+            document.getElementById('messages').appendChild(messageElement);
 
-            // Add message to the messages container
+            // Scroll to the bottom of the messages container
             const messagesContainer = document.getElementById('messages');
-            messagesContainer.appendChild(messageElement);
-
-            // Scroll to the bottom of the messages container to show latest message
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         });
     </script>
 </body>
 </html>
+
