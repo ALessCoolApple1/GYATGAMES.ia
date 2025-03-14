@@ -74,13 +74,11 @@
         function setUsername() {
             username = document.getElementById('username').value.trim();
             if (username) {
-                // Hide the username input section and enable the message section
                 document.getElementById('username-container').style.display = 'none';
                 document.getElementById('message').disabled = false;
                 document.getElementById('sendButton').disabled = false;
                 alert("You can now start chatting.");
             } else {
-                // Even if no username is set, proceed as "Anonymous"
                 document.getElementById('username-container').style.display = 'none';
                 document.getElementById('message').disabled = false;
                 document.getElementById('sendButton').disabled = false;
@@ -94,12 +92,11 @@
             if (messageText) {
                 const messagesRef = ref(database, 'messages');
                 push(messagesRef, {
-                    name: username,  // Send the username, which defaults to "Anonymous"
+                    name: username,  // Send the username (even if "Anonymous")
                     text: messageText
                 });
-
-                // Clear the message input after sending the message
-                document.getElementById('message').value = '';
+                console.log("Message sent:", messageText);  // Log the message sent
+                document.getElementById('message').value = '';  // Clear the input
             }
         }
 
@@ -107,22 +104,19 @@
         const messagesRef = ref(database, 'messages');
         onChildAdded(messagesRef, (snapshot) => {
             const message = snapshot.val();
+            console.log("New message:", message);  // Log the new message received
             const messageElement = document.createElement('div');
             messageElement.textContent = `${message.name}: ${message.text}`;
             document.getElementById('messages').appendChild(messageElement);
 
-            // Scroll to the bottom of the messages container
             const messagesContainer = document.getElementById('messages');
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         });
 
-        // Add event listener for "Set Username" button
         document.getElementById('setUsernameButton').addEventListener('click', setUsername);
-
-        // Add event listener for "Send" button
         document.getElementById('sendButton').addEventListener('click', sendMessage);
+
     </script>
 
 </body>
 </html>
-
