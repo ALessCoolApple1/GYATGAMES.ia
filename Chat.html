@@ -46,7 +46,7 @@
 
     <!-- Message input field and send button -->
     <input type="text" id="message" placeholder="Type a message..." disabled>
-    <button onclick="sendMessage()" id="sendButton" disabled>Send</button>
+    <button id="sendButton" disabled>Send</button>
 
     <!-- Include Firebase SDKs -->
     <script type="module">
@@ -116,9 +116,13 @@
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         });
 
-        // Add an event listener for the "Set Username" button (optional)
+        // Add event listener for "Set Username" button
         document.getElementById('setUsernameButton').addEventListener('click', setUsername);
+
+        // Add event listener for "Send" button
+        document.getElementById('sendButton').addEventListener('click', sendMessage);
     </script>
 
 </body>
 </html>
+
