@@ -37,8 +37,8 @@
     <!-- Username input field -->
     <div id="username-container">
         <label for="username">Enter your name:</label>
-        <input type="text" id="username" placeholder="Your Name" required>
-        <button id="setUsernameButton">Set Username</button>
+        <input type="text" id="username" placeholder="Your Name (optional)">
+        <button id="setUsernameButton">Set Username (Optional)</button>
     </div>
 
     <!-- Chat container -->
@@ -68,9 +68,9 @@
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
 
-        let username = null;
+        let username = "Anonymous"; // Default username
 
-        // Function to set the username
+        // Function to set the username (optional)
         function setUsername() {
             username = document.getElementById('username').value.trim();
             if (username) {
@@ -78,19 +78,23 @@
                 document.getElementById('username-container').style.display = 'none';
                 document.getElementById('message').disabled = false;
                 document.getElementById('sendButton').disabled = false;
-                alert("Username set! You can now start chatting.");
+                alert("You can now start chatting.");
             } else {
-                alert('Please enter a valid name.');
+                // Even if no username is set, proceed as "Anonymous"
+                document.getElementById('username-container').style.display = 'none';
+                document.getElementById('message').disabled = false;
+                document.getElementById('sendButton').disabled = false;
+                alert("You can now start chatting as 'Anonymous'.");
             }
         }
 
         // Function to send a message to Firebase
         function sendMessage() {
             const messageText = document.getElementById('message').value.trim();
-            if (messageText && username) {
+            if (messageText) {
                 const messagesRef = ref(database, 'messages');
                 push(messagesRef, {
-                    name: username,
+                    name: username,  // Send the username, which defaults to "Anonymous"
                     text: messageText
                 });
 
@@ -112,7 +116,7 @@
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         });
 
-        // Add an event listener for the "Set Username" button
+        // Add an event listener for the "Set Username" button (optional)
         document.getElementById('setUsernameButton').addEventListener('click', setUsername);
     </script>
 
