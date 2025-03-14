@@ -38,7 +38,7 @@
     <div id="username-container">
         <label for="username">Enter your name:</label>
         <input type="text" id="username" placeholder="Your Name" required>
-        <button id="setUsernameButton" onclick="setUsername()">Set Username</button>
+        <button id="setUsernameButton">Set Username</button>
     </div>
 
     <!-- Chat container -->
@@ -70,7 +70,7 @@
 
         let username = null;
 
-        // Set the username when the user clicks the "Set Username" button
+        // Function to set the username
         function setUsername() {
             username = document.getElementById('username').value.trim();
             if (username) {
@@ -84,7 +84,7 @@
             }
         }
 
-        // Send message to Firebase when the user clicks the send button
+        // Function to send a message to Firebase
         function sendMessage() {
             const messageText = document.getElementById('message').value.trim();
             if (messageText && username) {
@@ -109,4 +109,12 @@
 
             // Scroll to the bottom of the messages container
             const messagesContainer = document.getElementById('messages');
-            messagesContainer.scrol
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        });
+
+        // Add an event listener for the "Set Username" button
+        document.getElementById('setUsernameButton').addEventListener('click', setUsername);
+    </script>
+
+</body>
+</html>
