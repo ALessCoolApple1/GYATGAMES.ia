@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat Application</title>
+    <title>Public Chat Application</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -32,30 +32,22 @@
 </head>
 <body>
 
-    <h1>Chat Room</h1>
-
-    <!-- Username input field -->
-    <div id="username-container">
-        <label for="username">Enter your name (optional):</label>
-        <input type="text" id="username" placeholder="Your Name">
-        <button id="setUsernameButton">Set Username</button>
-    </div>
+    <h1>Public Chat Room</h1>
 
     <!-- Chat container -->
     <div id="messages"></div>
 
     <!-- Message input field and send button -->
-    <input type="text" id="message" placeholder="Type a message..." disabled>
-    <button onclick="sendMessage()" id="sendButton" disabled>Send</button>
+    <input type="text" id="message" placeholder="Type a message...">
+    <button id="sendButton">Send</button>
 
-    <!-- Include Firebase SDKs -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
         import { getDatabase, ref, push, onChildAdded } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
 
         // Your web app's Firebase configuration
         const firebaseConfig = {
-            apiKey: "YOUR_API_KEY", 
+            apiKey: "YOUR_API_KEY",
             authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
             databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
             projectId: "YOUR_PROJECT_ID",
@@ -68,29 +60,24 @@
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
 
-        let username = null;
-
-        // Function to set the username (optional)
-        function setUsername() {
-            username = document.getElementById('username').value.trim();
-            // If the username is empty, allow anonymous chat
-            if (!username) {
-                username = "Anonymous";
-            }
-            // Hide the username input section and enable the message section
-            document.getElementById('username-container').style.display = 'none';
-            document.getElementById('message').disabled = false;
-            document.getElementById('sendButton').disabled = false;
-            alert("Username set! You can now start chatting.");
+        // Function to generate a random username
+        function generateUsername() {
+            const prefix = "User_";
+            const randomNumber = Math.floor(Math.random() * 10000);
+            return prefix + randomNumber;
         }
+
+        // Generate a username when the page loads
+        const username = generateUsername();
+        console.log("Assigned Username: ", username);
 
         // Function to send a message to Firebase
         function sendMessage() {
             const messageText = document.getElementById('message').value.trim();
-            if (messageText && username) {
+            if (messageText) {
                 const messagesRef = ref(database, 'messages');
                 push(messagesRef, {
-                    name: username,
+                    name: username,  // Use the auto-generated username
                     text: messageText
                 });
 
@@ -112,9 +99,10 @@
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         });
 
-        // Add an event listener for the "Set Username" button
-        document.getElementById('setUsernameButton').addEventListener('click', setUsername);
+        // Add an event listener for the "Send" button
+        document.getElementById('sendButton').addEventListener('click', sendMessage);
     </script>
 
 </body>
 </html>
+
