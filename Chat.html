@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat Application</title>
     <style>
-        /* Add your styles here */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -39,13 +38,11 @@
     <div id="username-container">
         <label for="username">Enter your name:</label>
         <input type="text" id="username" placeholder="Your Name" required>
-        <button onclick="setUsername()">Set Username</button>
+        <button id="setUsernameButton" onclick="setUsername()">Set Username</button>
     </div>
 
     <!-- Chat container -->
-    <div id="messages">
-        <!-- Messages will appear here -->
-    </div>
+    <div id="messages"></div>
 
     <!-- Message input field and send button -->
     <input type="text" id="message" placeholder="Type a message..." disabled>
@@ -53,13 +50,12 @@
 
     <!-- Include Firebase SDKs -->
     <script type="module">
-        // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
         import { getDatabase, ref, push, onChildAdded } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
 
         // Your web app's Firebase configuration
         const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
+            apiKey: "YOUR_API_KEY", 
             authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
             databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
             projectId: "YOUR_PROJECT_ID",
@@ -113,9 +109,4 @@
 
             // Scroll to the bottom of the messages container
             const messagesContainer = document.getElementById('messages');
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
-        });
-    </script>
-</body>
-</html>
-
+            messagesContainer.scrol
