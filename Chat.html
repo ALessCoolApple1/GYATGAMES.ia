@@ -6,9 +6,33 @@
     <title>Chat Application</title>
     <style>
         /* Add your styles here */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        #messages {
+            height: 300px;
+            overflow-y: scroll;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        #message {
+            width: 80%;
+            padding: 10px;
+        }
+        #sendButton {
+            padding: 10px 15px;
+            font-size: 16px;
+        }
+        #username-container {
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
+
     <h1>Chat Room</h1>
 
     <!-- Username input field -->
@@ -19,7 +43,7 @@
     </div>
 
     <!-- Chat container -->
-    <div id="messages" style="height: 300px; overflow-y: scroll; border: 1px solid #ccc; padding: 10px;">
+    <div id="messages">
         <!-- Messages will appear here -->
     </div>
 
@@ -33,7 +57,7 @@
 
     <!-- Your Firebase configuration -->
     <script>
-        // Initialize Firebase
+        // Firebase configuration
         const firebaseConfig = {
             apiKey: "YOUR_API_KEY",
             authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
@@ -43,39 +67,42 @@
             messagingSenderId: "YOUR_SENDER_ID",
             appId: "YOUR_APP_ID"
         };
+
         const app = firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
         let username = null;
 
-        // Set the username
+        // Set the username when the user clicks the "Set Username" button
         function setUsername() {
             username = document.getElementById('username').value.trim();
             if (username) {
+                // Hide the username input section and enable the message section
                 document.getElementById('username-container').style.display = 'none';
                 document.getElementById('message').disabled = false;
                 document.getElementById('sendButton').disabled = false;
+                alert("Username set! You can now start chatting.");
             } else {
                 alert('Please enter a valid name.');
             }
         }
 
-        // Send message to Firebase
+        // Send message to Firebase when the user clicks the send button
         function sendMessage() {
             const messageText = document.getElementById('message').value.trim();
             if (messageText && username) {
-                // Push message with name and message content
                 const messagesRef = database.ref('messages');
                 messagesRef.push({
                     name: username,
                     text: messageText
                 });
 
-                document.getElementById('message').value = ''; // Clear message input
+                // Clear the message input after sending the message
+                document.getElementById('message').value = '';
             }
         }
 
-        // Listen for new messages and display them
+        // Listen for new messages and display them in real-time
         const messagesRef = database.ref('messages');
         messagesRef.on('child_added', function(snapshot) {
             const message = snapshot.val();
