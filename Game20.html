@@ -2,10 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Loading...</title>
+    <title>Verifying...</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>
-        // Cookie functions
         function setCookie(name, value, days) {
             var expires = "";
             if (days) {
@@ -21,43 +20,29 @@
             var ca = document.cookie.split(';');
             for (var i = 0; i < ca.length; i++) {
                 var c = ca[i];
-                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+                while (c.charAt(0) == ' ') c = c.substring(1);
+                if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length);
             }
             return null;
         }
 
-        // Password and redirect setup
         const password = "2190";
         const redirectURL = "http://82.197.92.104:2020/";
 
         window.onload = function () {
             const accessGranted = getCookie("accessGranted");
 
-            if (!accessGranted) {
+            if (accessGranted === "true") {
+                window.location.href = redirectURL; // Redirect in same tab
+            } else {
                 const passcode = prompt("Enter PassCode");
-
-                if (!passcode || passcode !== password) {
-                    window.close(); // Try to close the tab
-                    return;
-                } else {
+                if (passcode === password) {
                     setCookie("accessGranted", "true", 7);
+                    window.location.href = redirectURL; // Redirect in same tab
+                } else {
+                    window.close(); // Try to close this tab
                 }
             }
-
-            // Open in new tab and try to close this one
-            window.open(redirectURL, "_blank");
-            window.close();
-
-            // Fallback if close doesn't work
-            setTimeout(() => {
-                if (!window.closed) {
-                    document.body.innerHTML = `
-                        <h1>Redirecting...</h1>
-                        <p>If this tab didn’t close, you can close it now.</p>
-                    `;
-                }
-            }, 500);
         };
     </script>
 </head>
