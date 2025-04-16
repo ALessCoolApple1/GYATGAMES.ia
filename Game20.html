@@ -26,21 +26,25 @@
             return null;
         }
 
-        const password = "2190";
-        const redirectURL = "http://82.197.92.104:2020/";
+        const password = "2190";  // The password you're using
+        const redirectURL = "http://82.197.92.104:2020/";  // The page to redirect to
 
         window.onload = function () {
             const accessGranted = getCookie("accessGranted");
 
             if (accessGranted === "true") {
-                window.location.href = redirectURL; // Redirect in same tab
+                // Redirect the user to the page (same tab)
+                window.location.href = redirectURL;
             } else {
+                // Ask for password if not granted
                 const passcode = prompt("Enter PassCode");
                 if (passcode === password) {
-                    setCookie("accessGranted", "true", 7);
-                    window.location.href = redirectURL; // Redirect in same tab
+                    setCookie("accessGranted", "true", 7); // Store cookie for future visits
+                    // Redirect the user to the page (same tab)
+                    window.location.href = redirectURL;
                 } else {
-                    window.close(); // Try to close this tab
+                    // If wrong, just close the tab (browser may block this in some cases)
+                    window.close();
                 }
             }
         };
