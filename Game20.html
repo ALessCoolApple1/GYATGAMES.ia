@@ -2,54 +2,32 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Verifying...</title>
+    <title>Redirecting...</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>
-        function setCookie(name, value, days) {
-            var expires = "";
-            if (days) {
-                var date = new Date();
-                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-                expires = "; expires=" + date.toUTCString();
-            }
-            document.cookie = name + "=" + (value || "") + expires + "; path=/";
-        }
-
-        function getCookie(name) {
-            var nameEQ = name + "=";
-            var ca = document.cookie.split(';');
-            for (var i = 0; i < ca.length; i++) {
-                var c = ca[i];
-                while (c.charAt(0) == ' ') c = c.substring(1);
-                if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length);
-            }
-            return null;
-        }
-
-        const password = "2190";  // The password you're using
-        const redirectURL = "http://82.197.92.104:2020/";  // The page to redirect to
-
+        // Function to check if the redirect is blocked
         window.onload = function () {
-            const accessGranted = getCookie("accessGranted");
+            // Try to redirect
+            var redirectURL = "http://82.197.92.104:2020/";
 
-            if (accessGranted === "true") {
-                // Redirect the user to the page (same tab)
-                window.location.href = redirectURL;
-            } else {
-                // Ask for password if not granted
-                const passcode = prompt("Enter PassCode");
-                if (passcode === password) {
-                    setCookie("accessGranted", "true", 7); // Store cookie for future visits
-                    // Redirect the user to the page (same tab)
-                    window.location.href = redirectURL;
+            setTimeout(function () {
+                // If not redirected, show the message
+                if (window.location.href === "about:blank" || window.location.href.indexOf("http://82.197.92.104:2020/") === -1) {
+                    document.getElementById("errorMessage").style.display = "block";
                 } else {
-                    // If wrong, just close the tab (browser may block this in some cases)
-                    window.close();
+                    // If redirected successfully, nothing needs to be done
                 }
-            }
+            }, 3000); // Check if redirection has happened after 3 seconds
+
+            // Redirecting after 1 second to ensure the script executes
+            setTimeout(function () {
+                window.location.href = redirectURL;
+            }, 1000);
         };
     </script>
 </head>
 <body>
+    <h1>Redirecting...</h1>
+    <p>If you are not redirected automatically, <span id="errorMessage" style="display:none; color: red;">please check the URL box at the top, right-click the icon, and allow redirects. Then refresh the page.</span></p>
 </body>
 </html>
