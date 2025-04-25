@@ -1,300 +1,150 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=0.5">
-        <title>Ixl.</title>
-        <link rel="stylesheet" href="style.css">
-        <script>
-            // Function to set a cookie
-            function setCookie(name, value, days) {
-                var expires = "";
-                if (days) {
-                    var date = new Date();
-                    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-                    expires = "; expires=" + date.toUTCString();
-                }
-                document.cookie = name + "=" + (value || "") + expires + "; path=/";
-            }
-
-            // Function to get a cookie by name
-            function getCookie(name) {
-                var nameEQ = name + "=";
-                var ca = document.cookie.split(';');
-                for (var i = 0; i < ca.length; i++) {
-                    var c = ca[i];
-                    while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-                    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-                }
-                return null;
-            }
-
-            // Function to check if password is correct and set cookie
-            var password = "2190";
-            (function passcodeprotect() {
-                // Check if the 'accessGranted' cookie exists
-                var accessGranted = getCookie("accessGranted");
-
-                // If cookie doesn't exist or password is wrong, prompt for password
-                if (!accessGranted) {
-                    var passcode = prompt("Enter PassCode");
-                    if (passcode !== password) {
-                        alert("I didn't give you this site I know you get it from looking at someone else's computer");
-                        window.close(); // Close the tab if the password is incorrect
-                    } else {
-                        setCookie("accessGranted", "true", 7); // Set the cookie for 7 days
-                        alert('Good, I guess you are one of the few I gave access to');
-                    }
-                } else {
-                    alert('You are already granted access!');
-                }
-            })();
-        </script>
-     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Responsive Game Grid</title>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Interactive Page</title>
     <style>
         body {
+            margin: 0;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease;
+        }
+        section {
+            height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* Align content to the top */
-            min-height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-            padding-top: 0px; /* Adds spacing from the top */
+            align-items: center;
+            font-size: 2rem;
+            transition: opacity 0.5s ease;
         }
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, 150px); /* Fixed item size, adjusts columns to fit */
-            gap: 10px;
-            width: 100%;
-            max-width: 100vw;
-            justify-content: center;
-            padding: 10px;
+        .hidden {
+            opacity: 0;
+            pointer-events: none;
         }
-        .grid-item {
-            position: relative;
-            width: 150px;
-            height: 150px;
-            border-radius: 14.75px;
-            overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s;
+        .visible {
+            opacity: 1;
+            pointer-events: all;
         }
-        .grid-item:hover {
-            transform: scale(1.05);
+        #gif {
+            position: fixed;
+            top: -150px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: top 0.5s, opacity 0.5s;
         }
-        img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .text-box {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background-color: rgba(0, 0, 0, 0.6);
-            color: white;
-            padding: 5px;
-            font-size: 14px;
-            text-align: center;
-            font-family: Arial, sans-serif;
+        button {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <div class="grid-container">
-        <a href="https://alesscoolapple1.github.io/GYATGAMES.ia/Game1.html" class="grid-item">
-            <img src="https://infinite-craft.co/data/image/game/drive-mad.jpg" alt="Png not loading">
-            <div class="text-box">Drive mad</div>
-        </a>
-            <a href="https://alesscoolapple1.github.io/GYATGAMES.ia/Game2.html" class="grid-item">
-            <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSSZhphk6g_b-klNIDFWmiYaVMqPzC1RREIi1fp7bJMy1q9YfIz" alt="Png not loading">
-            <div class="text-box">Idle Miner</div>
-        </a>
-            <a href="https://alesscoolapple1.github.io/GYATGAMES.ia/Game3.html" class="grid-item">
-            <img src="https://miro.medium.com/v2/resize:fit:512/1*e6GY0o5HuIvtOOK3wR0lwA.png" alt="Png not loading">
-            <div class="text-box">Tetris</div>
-        </a>
-            <a href="https://alesscoolapple1.github.io/GYATGAMES.ia/Game4.html" class="grid-item">
-            <img src="https://img.poki-cdn.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,f=auto/ba04eca05c362b04deec44651e86e39a.png" alt="Png not loading">
-            <div class="text-box">Stackris</div>
-         <a href="https://alesscoolapple1.github.io/GYATGAMES.ia/Game5.html" class="grid-item">
-            <img src="https://mathsedu1510.github.io/img/class-533.png" alt="Png not loading">
-            <div class="text-box">Gunspin</div>
-        </a>
-            <a href="https://alesscoolapple1.github.io/GYATGAMES.ia/Game6.html" class="grid-item">
-            <img src="https://mathsedu1510.github.io/img/class-448.png" alt="Png not loading">
-            <div class="text-box">Cookie Clicker</div>
-        </a>
-            <a href="https://alesscoolapple1.github.io/GYATGAMES.ia/Game7.html" class="grid-item">
-            <img src="https://mathsedu1510.github.io/img/class-450.png" alt="Png not loading">
-            <div class="text-box">Slope</div>
-        </a>
-            <a href="https://alesscoolapple1.github.io/GYATGAMES.ia/Game8.html" class="grid-item">
-            <img src="https://labgstore311.github.io/img/class-528.png" alt="Png not loading">
-            <div class="text-box">N gon</div>
-        </a>
-            <a href="https://alesscoolapple1.github.io/GYATGAMES.ia/Game9.html" class="grid-item">
-            <img src="https://labgstore311.github.io/img/class-633.png" alt="Png not loading">
-            <div class="text-box">Tag</div>
-        </a>
-            <a href="https://alesscoolapple1.github.io/GYATGAMES.ia/Game10.html" class="grid-item">
-            <img src="https://labgstore311.github.io/img/class-481.png" alt="Png not loading">
-            <div class="text-box">Rooftop snipers</div>
-        </a>
-            <a href="https://alesscoolapple1.github.io/GYATGAMES.ia/Game11.html" class="grid-item">
-            <img src="https://labgstore311.github.io/img/class-638.png" alt="Png not loading">
-            <div class="text-box">Jumping shell</div>
-        </a>
-            <a href="https://alesscoolapple1.github.io/GYATGAMES.ia/Game12.html" class="grid-item">
-            <img src="https://labgstore311.github.io/img/class-784.png" alt="Png not loading">
-            <div class="text-box">Bloons 1</div>
-        </a>
-            <a href="https://alesscoolapple1.github.io/GYATGAMES.ia/Game13.html" class="grid-item">
-            <img src="https://play-lh.googleusercontent.com/d7m2ov6sNDMa8iTkU7UYO8z5IJrYopwgAf8nmYH95DHfrkpt6Y8R_I77UHsrlrg7-4Mu" alt="Png not loading">
-            <div class="text-box">Gun mayhem</div>     
-        </a>
-            <a href="https://alesscoolapple1.github.io/GYATGAMES.ia/Game14.html" class="grid-item">
-            <img src="https://d.newsweek.com/en/full/1317374/bitlife-ribbons-how-get-all-complete-list-android-ios-cheats-guide-tips-become.jpg?w=1600&h=1600&q=88&f=75befc746fb83a0c568c44ca07bc5e64" alt="Png not loading">
-            <div class="text-box">Bit Life</div>        
-        </a>        
-            <a href="https://alesscoolapple1.github.io/GYATGAMES.ia/Game15.html" class="grid-item">
-            <img src="https://img.itch.zone/aW1nLzg3MTU5NzMucG5n/original/0LqGxb.png" alt="Png not loading">
-            <div class="text-box">10 Miniutes till dawn</div>
-        </a>            
-            <a href="https://alesscoolapple1.github.io/GYATGAMES.ia/Game16.html" class="grid-item">
-            <img src="https://images.sftcdn.net/images/t_app-icon-m/p/665c241b-c23e-4944-928a-ddf8f6293d4f/1578272852/idle-breakout-logo" alt="Png not loading">
-            <div class="text-box">Idle breakeout</div>
-        </a>  
-            <a href="https://alesscoolapple1.github.io/GYATGAMES.ia/Game17.html" class="grid-item">
-            <img src="https://escaperoad.io/data/image/game/eggy-car-sr1.png" alt="Png not loading">
-            <div class="text-box">Eggy car</div>
-        </a> 
-            <a href="https://alesscoolapple1.github.io/GYATGAMES.ia/Game18.html" class="grid-item"> 
-            <img src="data:image/jpeg;base64,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" alt="Png not loading"> 
-            <div class="text-box">Retro Bowl</div> </a>
-         </a>
-            <a href="https://alesscoolapple1.github.io/GYATGAMES.ia/Game19.html" class="grid-item">
-            <img src="https://bcaex.co/wp-content/uploads/2024/09/screenshot-of-the-plinko-game.jpg" alt="Png not loading">
-            <div class="text-box">Plinko</div>
-        </a>
-            <a href="https://alesscoolapple1.github.io/GYATGAMES.ia/Game20.html" class="grid-item">
-            <img src="https://cdn.sanity.io/images/kts928pd/production/e95ba8a56353f8a6073f209002c7cfb59ce997b6-731x731.png" alt="Png not loading">
-            <div class="text-box">Crash/coinflip</div>
-        </a>
-    </div>
-</body>
-   <script>
-    const sections = document.querySelectorAll("section");
-    let currentSection = 0;0pokm     
 
-    window.addEventListener("scroll", () => {
-        const scrollY = window.scrollY;
-        const viewportHeight = window.innerHeight;
+    <section class="visible">
+        <p>Scroll down to continue</p>
+    </section>
+    <section class="hidden">
+        <p>This is section two</p>
+    </section>
+    <section class="hidden">
+        <p>This is section three</p>
+        <button onclick="playSoundAndToggleGif()">Play Sound & Toggle Gif</button>
+    </section>
+    <section class="hidden">
+        <p>Final section</p>
+        <button onclick="dextersheknows()">She Knows</button>
+    </section>
 
-        if (scrollY > currentSection * viewportHeight + viewportHeight / 2) {
-            if (currentSection < sections.length - 1) {
-                sections[currentSection].classList.remove("visible");
-                sections[currentSection].classList.add("hidden");
-                currentSection++;
-                sections[currentSection].classList.remove("hidden");
-                sections[currentSection].classList.add("visible");
+    <img id="gif" src="your-gif-file.gif" alt="Moving GIF" width="200" height="150">
+    
+    <audio id="sound" src="sound1.mp3"></audio>
+    <audio id="sound2" src="sound2.mp3"></audio>
+    <audio id="sound4" src="sound4.mp3"></audio>
+
+    <script>
+        const sections = document.querySelectorAll("section");
+        let currentSection = 0;
+
+        window.addEventListener("scroll", () => {
+            const scrollY = window.scrollY;
+            const viewportHeight = window.innerHeight;
+
+            if (scrollY > currentSection * viewportHeight + viewportHeight / 2) {
+                if (currentSection < sections.length - 1) {
+                    sections[currentSection].classList.remove("visible");
+                    sections[currentSection].classList.add("hidden");
+                    currentSection++;
+                    sections[currentSection].classList.remove("hidden");
+                    sections[currentSection].classList.add("visible");
+                }
             }
+
+            if (scrollY < currentSection * viewportHeight - viewportHeight / 2) {
+                if (currentSection > 0) {
+                    sections[currentSection].classList.remove("visible");
+                    sections[currentSection].classList.add("hidden");
+                    currentSection--;
+                    sections[currentSection].classList.remove("hidden");
+                    sections[currentSection].classList.add("visible");
+                }
+            }
+        });
+
+        document.addEventListener('mousemove', (event) => {
+            const x = event.clientX;
+            const y = event.clientY;
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+
+            const red = Math.round((x / width) * 255);
+            const green = Math.round((y / height) * 255);
+            const blue = Math.round(((x + y) / (width + height)) * 255);
+
+            document.body.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
+        });
+
+        let gifVisible = false;
+
+        function playSoundAndToggleGif() {
+            const audio = document.getElementById("sound");
+            const gif = document.getElementById("gif");
+            const audio2 = document.getElementById("sound2");
+
+            if (!gifVisible) {
+                audio.play();
+                audio2.play();
+                gif.style.top = "0";
+                gif.style.opacity = "1";
+            } else {
+                audio.pause();
+                audio2.pause();
+                audio.currentTime = 0;
+                audio2.currentTime = 0;
+                gif.style.top = "-150px";
+                gif.style.opacity = "0";
+            }
+
+            gifVisible = !gifVisible;
         }
 
-        if (scrollY < currentSection * viewportHeight - viewportHeight / 2) {
-            if (currentSection > 0) {
-                sections[currentSection].classList.remove("visible");
-                sections[currentSection].classList.add("hidden");
-                currentSection--;
-                sections[currentSection].classList.remove("hidden");
-                sections[currentSection].classList.add("visible");
-            }
-        }
-    });
-
-    document.addEventListener('mousemove', (event) => {
-        const x = event.clientX;
-        const y = event.clientY;
-        const width = window.innerWidth;
-        const height = window.innerHeight;
-
-        const red = Math.round((x / width) * 255);
-        const green = Math.round((y / height) * 255);
-        const blue = Math.round(((x + y) / (width + height)) * 255);
-
-        document.body.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
-    });
-
-    let gifVisible = false;
-
-    function playSoundAndToggleGif() {
-        const audio = document.getElementById("sound");
-        const gif = document.getElementById("gif");
-        const audio2 = document.getElementById("sound2");
-
-        if (!gifVisible) {
-
+        function dextersheknows() {
+            var audio = document.getElementById("sound4");
             audio.play();
-            audio2.play();
-
-
-            gif.style.top = "0";
-            gif.style.opacity = "1";
-        } else {
-            audio.pause();
-            audio2.pause();
-
-            audio.currentTime = 0;
-            audio2.currentTime = 0;
-            // Hide the GIF
-            gif.style.top = "-150px";
-            gif.style.opacity = "0";
-        }
-
-        gifVisible = !gifVisible;
-    }
-
-
-    function dextersheknows() {
-        var audio = document.getElementById("sound4");
-        audio.play();
-        var elements = document.querySelectorAll("p, div, span");
-        var index = 0; // Start from the first element
-        window.onscroll = null;
-        function changeText() {
-            if (index < elements.length) {
-                var element = elements[index];
-
-                // First, make the text fade out
-                element.classList.add('fade-out');
-
-                // Wait for the fade-out transition to finish (1s), then change the text
-                setTimeout(function() {
-                    element.textContent = "She knows. It's over. - Dexter"; // Change the text to Dexter
-                    element.classList.remove('fade-out'); // Remove the fade-out class
-                }, 1000); // 1000ms = 1 second for fade-out
-
-                // Move to the next element after a short delay
-                index++;
-                setTimeout(changeText, 1500); // Delay before changing the next text (1.5s)
+            var elements = document.querySelectorAll("p, div, span");
+            var index = 0;
+            window.onscroll = null;
+            function changeText() {
+                if (index < elements.length) {
+                    elements[index].innerText = "she knows.";
+                    index++;
+                    setTimeout(changeText, 50);
+                }
             }
+            changeText();
         }
-
-        changeText(); // Start changing the text
-    }
-
-
-    window.onscroll = function() {
-        if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-            var sound = document.getElementById('sound3');
-            sound.play();
-            }
-        };
-
-   </script>
+    </script>
 
 </body>
 </html>
