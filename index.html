@@ -186,49 +186,49 @@
         </a>
     </div>
 </body>
-   <script>
-    const sections = document.querySelectorAll("section");
-    let currentSection = 0;0pokm     
+    <script>
+        const sections = document.querySelectorAll("section");
+        let currentSection = 0;
 
-    window.addEventListener("scroll", () => {
-        const scrollY = window.scrollY;
-        const viewportHeight = window.innerHeight;
-
-        if (scrollY > currentSection * viewportHeight + viewportHeight / 2) {
-            if (currentSection < sections.length - 1) {
-                sections[currentSection].classList.remove("visible");
-                sections[currentSection].classList.add("hidden");
-                currentSection++;
-                sections[currentSection].classList.remove("hidden");
-                sections[currentSection].classList.add("visible");
+        window.addEventListener("scroll", () => {
+            const scrollY = window.scrollY;
+            const viewportHeight = window.innerHeight;
+    
+            if (scrollY > currentSection * viewportHeight + viewportHeight / 2) {
+                if (currentSection < sections.length - 1) {
+                    sections[currentSection].classList.remove("visible");
+                    sections[currentSection].classList.add("hidden");
+                    currentSection++;
+                    sections[currentSection].classList.remove("hidden");
+                    sections[currentSection].classList.add("visible");
+                }
             }
-        }
 
-        if (scrollY < currentSection * viewportHeight - viewportHeight / 2) {
-            if (currentSection > 0) {
-                sections[currentSection].classList.remove("visible");
-                sections[currentSection].classList.add("hidden");
-                currentSection--;
-                sections[currentSection].classList.remove("hidden");
-                sections[currentSection].classList.add("visible");
+            if (scrollY < currentSection * viewportHeight - viewportHeight / 2) {
+                if (currentSection > 0) {
+                    sections[currentSection].classList.remove("visible");
+                    sections[currentSection].classList.add("hidden");
+                    currentSection--;
+                    sections[currentSection].classList.remove("hidden");
+                    sections[currentSection].classList.add("visible");
+                }
             }
-        }
-    });
+        });
 
         document.addEventListener('mousemove', (event) => {
-        const x = event.clientX;
-        const y = event.clientY;
-        const width = window.innerWidth;
-        const height = window.innerHeight;
+            const x = event.clientX;
+            const y = event.clientY;
+            const width = window.innerWidth;
+            const height = window.innerHeight;
 
-        const red = Math.round((x / width) * 255);
-        const green = Math.round((y / height) * 255);
-        const blue = Math.round(((x + y) / (width + height)) * 255);
+            const red = Math.round((x / width) * 255);
+            const green = Math.round((y / height) * 255);
+            const blue = Math.round(((x + y) / (width + height)) * 255);
 
-        document.body.style.backgroundColor = rgb(${red}, ${green}, ${blue});
-    });
-    
-   </script>
+            document.body.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
+        });
+    </script>
+
 
 </body>
 </html>
