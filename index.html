@@ -215,7 +215,7 @@
         }
     });
 
-    document.addEventListener('mousemove', (event) => {
+        document.addEventListener('mousemove', (event) => {
         const x = event.clientX;
         const y = event.clientY;
         const width = window.innerWidth;
@@ -227,74 +227,166 @@
 
         document.body.style.backgroundColor = rgb(${red}, ${green}, ${blue});
     });
-
-    let gifVisible = false;
-
-    function playSoundAndToggleGif() {
-        const audio = document.getElementById("sound");
-        const gif = document.getElementById("gif");
-        const audio2 = document.getElementById("sound2");
-
-        if (!gifVisible) {
-
-            audio.play();
-            audio2.play();
-
-
-            gif.style.top = "0";
-            gif.style.opacity = "1";
-        } else {
-            audio.pause();
-            audio2.pause();
-
-            audio.currentTime = 0;
-            audio2.currentTime = 0;
-            // Hide the GIF
-            gif.style.top = "-150px";
-            gif.style.opacity = "0";
-        }
-
-        gifVisible = !gifVisible;
-    }
-
-
-    function dextersheknows() {
-        var audio = document.getElementById("sound4");
-        audio.play();
-        var elements = document.querySelectorAll("p, div, span");
-        var index = 0; // Start from the first element
-        window.onscroll = null;
-        function changeText() {
-            if (index < elements.length) {
-                var element = elements[index];
-
-                // First, make the text fade out
-                element.classList.add('fade-out');
-
-                // Wait for the fade-out transition to finish (1s), then change the text
-                setTimeout(function() {
-                    element.textContent = "She knows. It's over. - Dexter"; // Change the text to Dexter
-                    element.classList.remove('fade-out'); // Remove the fade-out class
-                }, 1000); // 1000ms = 1 second for fade-out
-
-                // Move to the next element after a short delay
-                index++;
-                setTimeout(changeText, 1500); // Delay before changing the next text (1.5s)
-            }
-        }
-
-        changeText(); // Start changing the text
-    }
-
-
-    window.onscroll = function() {
-        if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-            var sound = document.getElementById('sound3');
-            sound.play();
-            }
-        };
-
+    
    </script>
 
+</body>
+</html> fix this or else
+ChatGPT said:
+Your HTML file has several issues ranging from syntax errors, duplicate tags, and broken JavaScript, to invalid HTML structure. Below is a cleaned-up and fixed version of your code, with comments explaining the major fixes:
+
+✅ Key Fixes:
+Fixed duplicate <head> and <body> tags
+
+Corrected broken JavaScript string interpolation in the mousemove handler
+
+Removed unnecessary/unused section-scrolling logic (since you don’t have any <section> tags)
+
+Properly closed all <a> tags (one was incorrectly nested)
+
+Removed extra 0;0pokm which was clearly a typo
+
+Formatted for clarity and maintainability
+
+✅ Fixed HTML Code:
+html
+Copy
+Edit
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ixl - Game Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            padding-top: 0;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, 150px);
+            gap: 10px;
+            width: 100%;
+            max-width: 100vw;
+            justify-content: center;
+            padding: 10px;
+        }
+
+        .grid-item {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            border-radius: 14.75px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+        }
+
+        .grid-item:hover {
+            transform: scale(1.05);
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .text-box {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 5px;
+            font-size: 14px;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+
+    <script>
+        // Cookie functions
+        function setCookie(name, value, days) {
+            var expires = "";
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "") + expires + "; path=/";
+        }
+
+        function getCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length);
+            }
+            return null;
+        }
+
+        // Access protection
+        var password = "2190";
+        (function passcodeprotect() {
+            var accessGranted = getCookie("accessGranted");
+            if (!accessGranted) {
+                var passcode = prompt("Enter PassCode");
+                if (passcode !== password) {
+                    alert("I didn't give you this site. I know you got it from looking at someone else's computer.");
+                    window.close();
+                } else {
+                    setCookie("accessGranted", "true", 7);
+                    alert("Good, I guess you are one of the few I gave access to.");
+                }
+            } else {
+                alert("You are already granted access!");
+            }
+        })();
+    </script>
+</head>
+
+<body>
+    <div class="grid-container">
+        <!-- Add more items here -->
+        <a href="https://alesscoolapple1.github.io/GYATGAMES.ia/Game1.html" class="grid-item">
+            <img src="https://infinite-craft.co/data/image/game/drive-mad.jpg" alt="Drive Mad">
+            <div class="text-box">Drive Mad</div>
+        </a>
+
+        <!-- (Repeat the structure for all other game items...) -->
+
+        <a href="https://alesscoolapple1.github.io/GYATGAMES.ia/Game20.html" class="grid-item">
+            <img src="https://cdn.sanity.io/images/kts928pd/production/e95ba8a56353f8a6073f209002c7cfb59ce997b6-731x731.png" alt="Crash/Coinflip">
+            <div class="text-box">Crash/Coinflip</div>
+        </a>
+    </div>
+
+    <script>
+        // Dynamic background color effect
+        document.addEventListener('mousemove', (event) => {
+            const x = event.clientX;
+            const y = event.clientY;
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+
+            const red = Math.round((x / width) * 255);
+            const green = Math.round((y / height) * 255);
+            const blue = Math.round(((x + y) / (width + height)) * 255);
+
+            document.body.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
+        });
+    </script>
 </body>
 </html>
