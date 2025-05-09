@@ -108,6 +108,24 @@
             "Thanks for visiting!",
             "We're updating soon!"
         }
+        
+        let currentTextIndex = 0;
+
+        // Function to rotate text
+        function rotateText() {
+            const rotatingTextBox = document.getElementById("rotatingTextBox");
+            rotatingTextBox.textContent = textList[currentTextIndex];
+
+            // Update the index to the next text, looping back to the first one
+            currentTextIndex = (currentTextIndex + 1) % textList.length;
+        }
+
+        // Set an interval to rotate the text every 1.5 minutes (90 seconds)
+        setInterval(rotateText, 90 * 1000);
+
+        // Initial call to display the first text immediately
+        rotateText();
+    </script>
     </style>
 </head>
 <body>
@@ -209,7 +227,6 @@
             <div class="text-box">Sandtris</div>
         </a>
     </div>
-    <div id="rotatingText">Welcome to my site!</div>
 </body>
     <script>
         const sections = document.querySelectorAll("section");
