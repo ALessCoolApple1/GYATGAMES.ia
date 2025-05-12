@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=0.5">
+        <title>IXL TRUST 100%</title>
+        <link rel="stylesheet" href="style.css">
+        <script>
+            // Function to set a cookie
+            function setCookie(name, value, days) {
+                var expires = "";
+                if (days) {
+                    var date = new Date();
+                    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                    expires = "; expires=" + date.toUTCString();
+                }
+                document.cookie = name + "=" + (value || "") + expires + "; path=/";
+            }
+
+            // Function to get a cookie by name
+            function getCookie(name) {
+                var nameEQ = name + "=";
+                var ca = document.cookie.split(';');
+                for (var i = 0; i < ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+                }
+                return null;
+            }
+
+            // Function to check if password is correct and set cookie
+            var password = "2190";
+            (function passcodeprotect() {
+                // Check if the 'accessGranted' cookie exists
+                var accessGranted = getCookie("accessGranted");
+
+                // If cookie doesn't exist or password is wrong, prompt for password
+                if (!accessGranted) {
+                    var passcode = prompt("Enter PassCode");
+                    if (passcode !== password) {
+                        alert("I didn't give you this site I know you get it from looking at someone else's computer");
+                        document.body.innerHTML = ''; // Clear the page content to simulate a failed load
+                        document.body.style.display = 'none'; // Hide the page content
+                        return false; // Prevent the page from loading further
+                    } else {
+                        setCookie("accessGranted", "true", 7); // Set the cookie for 7 days
+                        alert('Good, I guess you are one of the few I gave access to');
+                    }
+                } else {
+                    alert('You are already granted access!');
+                }
+            })();
+        </script>
+    </head>
+    <body>
+        <h1>Welcome to the protected page!</h1>
+        <p>This is some content that should be hidden if the password is incorrect.</p>
+    </body>
+</html>
