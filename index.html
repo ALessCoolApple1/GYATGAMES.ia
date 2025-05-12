@@ -40,7 +40,9 @@
                     var passcode = prompt("Enter PassCode");
                     if (passcode !== password) {
                         alert("I didn't give you this site I know you get it from looking at someone else's computer");
-                        window.close(); // Close the tab if the password is incorrect
+                        document.body.innerHTML = ''; // Clear the page content to simulate a failed load
+                        document.body.style.display = 'none'; // Hide the page content
+                        return false; // Prevent the page from loading further
                     } else {
                         setCookie("accessGranted", "true", 7); // Set the cookie for 7 days
                         alert('Good, I guess you are one of the few I gave access to');
