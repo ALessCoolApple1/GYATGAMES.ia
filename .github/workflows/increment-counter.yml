@@ -1,7 +1,7 @@
 name: Increment Visit Counter
 
 on:
-  workflow_dispatch:  # Allows manual triggering
+  workflow_dispatch:  # Allows manual triggering via the GitHub Actions tab
 
 jobs:
   increment:
@@ -10,6 +10,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          ref: main  # Make sure this matches your default branch
 
       - name: Fetch current visit count
         id: fetch_counter
@@ -17,21 +19,32 @@ jobs:
           echo "Fetching current visit count from counter.json..."
           COUNTER_CONTENT=$(curl -s -H "Authorization: token ${{ secrets.GH_TOKEN }}" \
             https://api.github.com/repos/${{ github.repository }}/contents/counter.json)
-          VISITS=$(echo $COUNTER_CONTENT | jq -r '.content' | base64 --decode | jq .visits)
-          echo "Current visit count: $VISITS"
+          
+          echo "$COUNTER_CONTENT" > response.json
+          
+          # Extract content and decode from base64
+          echo "$COUNTER_CONTENT" | jq -r '.content' | base64 --decode > counter.json
+
+          # Extract visit count
+          VISITS=$(jq -r '.visits' counter.json)
           echo "VISITS=$VISITS" >> $GITHUB_ENV
 
       - name: Increment visit count
         run: |
           NEW_VISITS=$((VISITS + 1))
-          echo "Incremented visit count: $NEW_VISITS"
-          NEW_CONTENT=$(jq --arg new_visits "$NEW_VISITS" '.visits = ($new_visits | tonumber)' counter.json)
-          echo "$NEW_CONTENT" > counter.json
+          echo "Incrementing visit count: $NEW_VISITS"
+          jq --argjson count "$NEW_VISITS" '.visits = $count' counter.json > tmp.json && mv tmp.json counter.json
 
-      - name: Commit updated visit count
+      - name: Commit and push if changed
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
+
           git add counter.json
-          git commit -m "Increment visit counter"
-          git push
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Increment visit counter"
+            git push https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git
+          fi
