@@ -13,6 +13,12 @@ jobs:
         with:
           ref: main  # Make sure this matches your default branch
 
+      - name: Ensure counter.json exists
+        run: |
+          if [ ! -f counter.json ]; then
+            echo '{"visits": 0}' > counter.json
+          fi
+
       - name: Fetch current visit count
         id: fetch_counter
         run: |
@@ -24,7 +30,6 @@ jobs:
           
           # Extract content and decode from base64
           echo "$COUNTER_CONTENT" | jq -r '.content' | base64 --decode > counter.json
-
           # Extract visit count
           VISITS=$(jq -r '.visits' counter.json)
           echo "VISITS=$VISITS" >> $GITHUB_ENV
@@ -39,9 +44,7 @@ jobs:
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
-
           git add counter.json
-
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
