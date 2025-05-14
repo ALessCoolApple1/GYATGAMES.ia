@@ -3,6 +3,9 @@ name: Increment Visit Counter
 on:
   workflow_dispatch:  # Allows manual triggering via the GitHub Actions tab
 
+permissions:
+  contents: write  # Explicitly allow write access to the repository
+
 jobs:
   increment:
     runs-on: ubuntu-latest
@@ -11,12 +14,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
-          ref: main  # Ensure this is your default branch
+          ref: main
 
       - name: Ensure counter.json exists
         run: |
           if [ ! -f counter.json ]; then
-            echo '{"visits": 0}' > counter.json  # If the file doesn't exist, create it with an initial visit count of 0
+            echo '{"visits": 0}' > counter.json
           fi
 
       - name: Fetch current visit count
@@ -31,24 +34,24 @@ jobs:
           # Extract content and decode from base64
           echo "$COUNTER_CONTENT" | jq -r '.content' | base64 --decode > counter.json
           
-          # Extract visit count from the decoded file
+          # Extract visit count
           VISITS=$(jq -r '.visits' counter.json)
-          echo "VISITS=$VISITS" >> $GITHUB_ENV  # Set the visit count as an environment variable
+          echo "VISITS=$VISITS" >> $GITHUB_ENV
 
       - name: Increment visit count
         run: |
-          NEW_VISITS=$((VISITS + 1))  # Increment the visit count by 1
+          NEW_VISITS=$((VISITS + 1))
           echo "Incrementing visit count to: $NEW_VISITS"
-          jq --argjson count "$NEW_VISITS" '.visits = $count' counter.json > tmp.json && mv tmp.json counter.json  # Update the counter.json file
+          jq --argjson count "$NEW_VISITS" '.visits = $count' counter.json > tmp.json && mv tmp.json counter.json
 
       - name: Commit and push if changed
         run: |
-          git config --global user.name 'github-actions'  # Set the Git username for commits
-          git config --global user.email 'github-actions@github.com'  # Set the Git user email for commits
-          git add counter.json  # Stage the updated counter.json file
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+          git add counter.json
           if git diff --cached --quiet; then
-            echo "No changes to commit."  # If there are no changes, do nothing
+            echo "No changes to commit."
           else
-            git commit -m "Increment visit counter"  # Commit the change
-            git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/ALessCoolApple1/GYATGAMES.ia.git  # Push the change to your repository
+            git commit -m "Increment visit counter"
+            git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/ALessCoolApple1/GYATGAMES.ia.git
           fi
