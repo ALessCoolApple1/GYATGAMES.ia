@@ -1,16 +1,12 @@
 name: Increment Visit Counter
 
 on:
-  # Trigger this workflow manually via GitHub UI
-  workflow_dispatch:
-  
-  # Optionally, schedule the workflow to run periodically (e.g., every hour)
-  # schedule:
-  #   - cron: '0 * * * *'  # Runs every hour
-  
+  workflow_dispatch:  # Allows manual triggering
+
 jobs:
   increment:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -19,7 +15,7 @@ jobs:
         id: fetch_counter
         run: |
           echo "Fetching current visit count from counter.json..."
-          COUNTER_CONTENT=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          COUNTER_CONTENT=$(curl -s -H "Authorization: token ${{ secrets.GH_TOKEN }}" \
             https://api.github.com/repos/${{ github.repository }}/contents/counter.json)
           VISITS=$(echo $COUNTER_CONTENT | jq -r '.content' | base64 --decode | jq .visits)
           echo "Current visit count: $VISITS"
