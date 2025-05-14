@@ -1,30 +1,38 @@
 name: Increment Visit Counter
 
 on:
+  # Trigger this workflow manually via GitHub UI
   workflow_dispatch:
-
+  
+  # Optionally, schedule the workflow to run periodically (e.g., every hour)
+  # schedule:
+  #   - cron: '0 * * * *'  # Runs every hour
+  
 jobs:
   increment:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Read current visit count
-        id: read_counter
+      - name: Fetch current visit count
+        id: fetch_counter
         run: |
-          VISITS=$(jq '.visits' counter.json)
-          echo "visits=$VISITS" >> $GITHUB_OUTPUT
+          echo "Fetching current visit count from counter.json..."
+          COUNTER_CONTENT=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            https://api.github.com/repos/${{ github.repository }}/contents/counter.json)
+          VISITS=$(echo $COUNTER_CONTENT | jq -r '.content' | base64 --decode | jq .visits)
+          echo "Current visit count: $VISITS"
+          echo "VISITS=$VISITS" >> $GITHUB_ENV
 
       - name: Increment visit count
         run: |
-          VISITS=${{ steps.read_counter.outputs.visits }}
           NEW_VISITS=$((VISITS + 1))
-          jq ".visits = $NEW_VISITS" counter.json > temp.json && mv temp.json counter.json
-          echo "New visit count: $NEW_VISITS"
+          echo "Incremented visit count: $NEW_VISITS"
+          NEW_CONTENT=$(jq --arg new_visits "$NEW_VISITS" '.visits = ($new_visits | tonumber)' counter.json)
+          echo "$NEW_CONTENT" > counter.json
 
-      - name: Commit updated counter
+      - name: Commit updated visit count
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
