@@ -1,0 +1,33 @@
+name: Increment Visit Counter
+
+on:
+  workflow_dispatch:
+
+jobs:
+  increment:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Read current visit count
+        id: read_counter
+        run: |
+          VISITS=$(jq '.visits' counter.json)
+          echo "Current visits: $VISITS"
+          echo "VISITS=$VISITS" >> $GITHUB_ENV
+
+      - name: Increment visit count
+        run: |
+          NEW_VISITS=$((VISITS + 1))
+          jq ".visits = $NEW_VISITS" counter.json > temp.json && mv temp.json counter.json
+          echo "New visit count: $NEW_VISITS"
+
+      - name: Commit updated counter
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+          git add counter.json
+          git commit -m "Increment visit counter"
+          git push
