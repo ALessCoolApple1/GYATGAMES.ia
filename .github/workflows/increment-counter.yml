@@ -15,11 +15,11 @@ jobs:
         id: read_counter
         run: |
           VISITS=$(jq '.visits' counter.json)
-          echo "Current visits: $VISITS"
-          echo "VISITS=$VISITS" >> $GITHUB_ENV
+          echo "visits=$VISITS" >> $GITHUB_OUTPUT
 
       - name: Increment visit count
         run: |
+          VISITS=${{ steps.read_counter.outputs.visits }}
           NEW_VISITS=$((VISITS + 1))
           jq ".visits = $NEW_VISITS" counter.json > temp.json && mv temp.json counter.json
           echo "New visit count: $NEW_VISITS"
