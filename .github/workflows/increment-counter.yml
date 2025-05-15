@@ -53,5 +53,5 @@ jobs:
             echo "No changes to commit."
           else
             git commit -m "Increment visit counter"
-            git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/ALessCoolApple1/GYATGAMES.ia.git
+            git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@https://alesscoolapple1.github.io/GYATGAMES.ia/Test.html
           fi
