@@ -51,6 +51,26 @@
                     alert('You are already granted access!');
                 }
             })();
+
+            
+        // Fetch and display visit counter from GitHub (counter.json)
+        function displayVisitCount() {
+            fetch('https://raw.githubusercontent.com/ALessCoolApple1/GYATGAMES.ia/main/counter.json')
+                .then(response => response.json())
+                .then(data => {
+                    const visitCount = data.visits;
+                    document.getElementById('visit-count').textContent = `Visit Count: ${visitCount}`;
+                })
+                .catch(error => {
+                    console.error("Error fetching visit count:", error);
+                    document.getElementById('visit-count').textContent = "Unable to load visit count.";
+                });
+        }
+
+        // Call the function on page load
+        window.onload = function() {
+            displayVisitCount();
+        };
         </script>
      <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
