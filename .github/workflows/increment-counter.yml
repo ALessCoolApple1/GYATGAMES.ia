@@ -1,7 +1,9 @@
 name: Increment Visit Counter
 
 on:
-  workflow_dispatch:  # Allows manual triggering via the GitHub Actions tab
+  workflow_dispatch:  # Allows manual triggering
+  schedule:
+    - cron: "*/5 * * * *"  # Every 5 minutes
 
 permissions:
   contents: write  # Explicitly allow write access to the repository
@@ -21,6 +23,7 @@ jobs:
           if [ ! -f counter.json ]; then
             echo '{"visits": 0}' > counter.json
           fi
+
       - name: Fetch current visit count
         id: fetch_counter
         run: |
@@ -28,17 +31,16 @@ jobs:
           COUNTER_CONTENT=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
             https://api.github.com/repos/${{ github.repository }}/contents/counter.json)
           echo "$COUNTER_CONTENT" > response.json
-          # Extract content and decode from base64
           echo "$COUNTER_CONTENT" | jq -r '.content' | base64 --decode > counter.json
-          
-          # Extract visit count
           VISITS=$(jq -r '.visits' counter.json)
           echo "VISITS=$VISITS" >> $GITHUB_ENV
+
       - name: Increment visit count
         run: |
           NEW_VISITS=$((VISITS + 1))
           echo "Incrementing visit count to: $NEW_VISITS"
           jq --argjson count "$NEW_VISITS" '.visits = $count' counter.json > tmp.json && mv tmp.json counter.json
+
       - name: Commit and push if changed
         run: |
           git config --global user.name 'github-actions'
@@ -48,5 +50,4 @@ jobs:
             echo "No changes to commit."
           else
             git commit -m "Increment visit counter"
-            git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/ALessCoolApple1/GYATGAMES.ia.git
-          fi
+            git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
