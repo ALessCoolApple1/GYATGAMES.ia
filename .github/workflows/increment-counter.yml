@@ -1,12 +1,12 @@
 name: Increment Visit Counter
 
 on:
-  workflow_dispatch:  # Allows manual triggering
+  workflow_dispatch:  # Allows manual triggering from GitHub UI
   schedule:
-    - cron: "*/5 * * * *"  # Every 5 minutes
+    - cron: "*/5 * * * *"  # Trigger every 5 minutes (in UTC time)
 
 permissions:
-  contents: write  # Explicitly allow write access to the repository
+  contents: write  # Allow write access to the repository contents
 
 jobs:
   increment:
@@ -16,12 +16,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
-          ref: main
+          ref: main  # Ensure it's on the correct branch, e.g., `main`
 
       - name: Ensure counter.json exists
         run: |
           if [ ! -f counter.json ]; then
-            echo '{"visits": 0}' > counter.json
+            echo '{"visits": 0}' > counter.json  # Create a counter if it doesn't exist
           fi
 
       - name: Fetch current visit count
@@ -31,7 +31,10 @@ jobs:
           COUNTER_CONTENT=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
             https://api.github.com/repos/${{ github.repository }}/contents/counter.json)
           echo "$COUNTER_CONTENT" > response.json
+          # Decode base64 content and save to counter.json
           echo "$COUNTER_CONTENT" | jq -r '.content' | base64 --decode > counter.json
+          
+          # Extract visit count
           VISITS=$(jq -r '.visits' counter.json)
           echo "VISITS=$VISITS" >> $GITHUB_ENV
 
@@ -51,3 +54,4 @@ jobs:
           else
             git commit -m "Increment visit counter"
             git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+          fi
