@@ -130,23 +130,34 @@
             "Thanks for visiting!",
             "We're updating soon!"
         }
+         .container {
+            padding: 20px;
+            text-align: center;
+        }
+
         #visit-count {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: rgba(0, 0, 0, 0.75);
+            background-color: #4CAF50;  /* Green background */
             color: white;
-            padding: 20px 40px;
-            font-size: 24px;
-            font-family: Arial, sans-serif;
-            border-radius: 12px;
-            z-index: 9999; /* Makes sure it's on top */
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            font-size: 36px;
+            font-weight: bold;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;  /* Space between visit count and grid */
+            display: inline-block;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 20px;
         }
     </script>
     </style>
 </head>
+     <div class="container">
+        <div id="visit-count">Visit Count: 73</div>
 <body>
     <div id="visit-count">Visit Count: 73</div>
     <div class="grid-container">
