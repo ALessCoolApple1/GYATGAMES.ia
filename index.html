@@ -246,27 +246,31 @@
     <script>
         // Update background and dynamically contrast counter color
         document.addEventListener('mousemove', (event) => {
-            const x = event.clientX;
-            const y = event.clientY;
-            const width = window.innerWidth;
-            const height = window.innerHeight;
+        const x = event.clientX;
+        const y = event.clientY;
+        const width = window.innerWidth;
+        const height = window.innerHeight;
 
-            const red = Math.round((x / width) * 255);
-            const green = Math.round((y / height) * 255);
-            const blue = Math.round(((x + y) / (width + height)) * 255);
+        // Calculate RGB based on cursor position
+        const red = Math.round((x / width) * 255);
+        const green = Math.round((y / height) * 255);
+        const blue = Math.round(((x + y) / (width + height)) * 255);
 
-            document.body.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
+        // Set page background color
+        document.body.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
 
-            const invRed = 255 - red;
-            const invGreen = 255 - green;
-            const invBlue = 255 - blue;
+        // Set the visit-count box background to fixed white
+        const visitBox = document.getElementById('visit-count');
+        visitBox.style.backgroundColor = 'white';
 
-            const visitBox = document.getElementById('visit-count');
-            visitBox.style.backgroundColor = `rgb(${invRed}, ${invGreen}, ${invBlue})`;
-            
-            visitBox.style.color = 'black';
+        // Invert the body color for text, but clamp it to avoid pure white
+        const textRed = Math.max(0, 255 - red);
+        const textGreen = Math.max(0, 255 - green);
+        const textBlue = Math.max(0, 255 - blue);
 
-        });
+        // Apply the adjusted color to the text
+        visitBox.style.color = `rgb(${textRed}, ${textGreen}, ${textBlue})`;
+    });
     </script>
 </body>
 </html>
