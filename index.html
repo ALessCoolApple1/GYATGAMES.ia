@@ -1,59 +1,54 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=0.5">
-        <title>IXL TRUST 100%</title>
-        <link rel="stylesheet" href="style.css">
-        <script>
-            // Function to set a cookie
-            function setCookie(name, value, days) {
-                var expires = "";
-                if (days) {
-                    var date = new Date();
-                    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-                    expires = "; expires=" + date.toUTCString();
-                }
-                document.cookie = name + "=" + (value || "") + expires + "; path=/";
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    <title>IXL TRUST 100%</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        // Cookie functions
+        function setCookie(name, value, days) {
+            var expires = "";
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
             }
+            document.cookie = name + "=" + (value || "") + expires + "; path=/";
+        }
 
-            // Function to get a cookie by name
-            function getCookie(name) {
-                var nameEQ = name + "=";
-                var ca = document.cookie.split(';');
-                for (var i = 0; i < ca.length; i++) {
-                    var c = ca[i];
-                    while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-                    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-                }
-                return null;
+        function getCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
             }
+            return null;
+        }
 
-            // Function to check if password is correct and set cookie
-            var password = "2190";
-            (function passcodeprotect() {
-                // Check if the 'accessGranted' cookie exists
-                var accessGranted = getCookie("accessGranted");
-
-                // If cookie doesn't exist or password is wrong, prompt for password
-                if (!accessGranted) {
-                    var passcode = prompt("Enter PassCode");
-                    if (passcode !== password) {
-                        alert("I didn't give you this site I know you get it from looking at someone else's computer");
-                        document.body.innerHTML = ''; // Clear the page content to simulate a failed load
-                        document.body.style.display = 'none'; // Hide the page content
-                        return false; // Prevent the page from loading further
-                    } else {
-                        setCookie("accessGranted", "true", 7); // Set the cookie for 7 days
-                        alert('Good, I guess you are one of the few I gave access to');
-                    }
+        // Password protection
+        var password = "2190";
+        (function passcodeprotect() {
+            var accessGranted = getCookie("accessGranted");
+            if (!accessGranted) {
+                var passcode = prompt("Enter PassCode");
+                if (passcode !== password) {
+                    alert("I didn't give you this site I know you get it from looking at someone else's computer");
+                    document.body.innerHTML = '';
+                    document.body.style.display = 'none';
+                    return false;
                 } else {
-                    alert('You are already granted access!');
+                    setCookie("accessGranted", "true", 7);
+                    alert('Good, I guess you are one of the few I gave access to');
                 }
-            })();
+            } else {
+                alert('You are already granted access!');
+            }
+        })();
 
-            
-        // Fetch and display visit counter from GitHub (counter.json)
+        // Visit counter fetch
         function displayVisitCount() {
             fetch('https://raw.githubusercontent.com/ALessCoolApple1/GYATGAMES.ia/main/counter.json')
                 .then(response => response.json())
@@ -67,33 +62,49 @@
                 });
         }
 
-        // Call the function on page load
-        window.onload = function() {
+        window.onload = function () {
             displayVisitCount();
         };
-        </script>
-     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Responsive Game Grid</title>
+    </script>
     <style>
         body {
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* Align content to the top */
+            align-items: flex-start;
             min-height: 100vh;
             margin: 0;
+            padding-top: 0px;
             background-color: #f0f0f0;
-            padding-top: 0px; /* Adds spacing from the top */
         }
+
+        .container {
+            padding: 20px;
+            text-align: center;
+        }
+
+        #visit-count {
+            font-size: 48px;
+            font-weight: 900;
+            padding: 30px 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.5s, color 0.5s;
+            margin-bottom: 40px;
+            display: inline-block;
+            border: 4px solid rgba(255, 255, 255, 0.4);
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, 150px); /* Fixed item size, adjusts columns to fit */
+            grid-template-columns: repeat(auto-fill, 150px);
             gap: 10px;
             width: 100%;
             max-width: 100vw;
             justify-content: center;
             padding: 10px;
         }
+
         .grid-item {
             position: relative;
             width: 150px;
@@ -103,14 +114,17 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s;
         }
+
         .grid-item:hover {
             transform: scale(1.05);
         }
+
         img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
+
         .text-box {
             position: absolute;
             bottom: 0;
@@ -123,44 +137,14 @@
             text-align: center;
             font-family: Arial, sans-serif;
         }
-        const textList = [
-            "Welcome to my site!",
-            "Enjoy the journey!",
-            "Stay tuned for new content!",
-            "Thanks for visiting!",
-            "We're updating soon!"
-        }
-         .container {
-            padding: 20px;
-            text-align: center;
-        }
-
-        #visit-count {
-            background-color: #4CAF50;  /* Green background */
-            color: white;
-            font-size: 36px;
-            font-weight: bold;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;  /* Space between visit count and grid */
-            display: inline-block;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            padding: 20px;
-        }
-    </script>
     </style>
 </head>
-     <div class="container">
-        <div id="visit-count">Visit Count: Loading</div>
 <body>
-    <div class="grid-container">
-        <a href="https://alesscoolapple1.github.io/GYATGAMES.ia/Game1.html" class="grid-item">
+    <div class="container">
+        <div id="visit-count">Visit Count: Loading</div>
+
+        <div class="grid-container">
+            <a href="https://alesscoolapple1.github.io/GYATGAMES.ia/Game1.html" class="grid-item">
             <img src="https://infinite-craft.co/data/image/game/drive-mad.jpg" alt="Png not loading">
             <div class="text-box">Drive mad</div>
         </a>
@@ -256,37 +240,11 @@
             <img src="https://play-lh.googleusercontent.com/l5OXNRzurL4a4lwLGbLxN9dTVkrHzkxIc5uqUwrJ7PdaynL-P9geRqe-0V5R-pnmf1M" alt="Png not loading">
             <div class="text-box">Sandtris</div>
         </a>
+        </div>
     </div>
-</body>
+
     <script>
-        const sections = document.querySelectorAll("section");
-        let currentSection = 0;
-
-        window.addEventListener("scroll", () => {
-            const scrollY = window.scrollY;
-            const viewportHeight = window.innerHeight;
-    
-            if (scrollY > currentSection * viewportHeight + viewportHeight / 2) {
-                if (currentSection < sections.length - 1) {
-                    sections[currentSection].classList.remove("visible");
-                    sections[currentSection].classList.add("hidden");
-                    currentSection++;
-                    sections[currentSection].classList.remove("hidden");
-                    sections[currentSection].classList.add("visible");
-                }
-            }
-
-            if (scrollY < currentSection * viewportHeight - viewportHeight / 2) {
-                if (currentSection > 0) {
-                    sections[currentSection].classList.remove("visible");
-                    sections[currentSection].classList.add("hidden");
-                    currentSection--;
-                    sections[currentSection].classList.remove("hidden");
-                    sections[currentSection].classList.add("visible");
-                }
-            }
-        });
-
+        // Update background and dynamically contrast counter color
         document.addEventListener('mousemove', (event) => {
             const x = event.clientX;
             const y = event.clientY;
@@ -298,9 +256,17 @@
             const blue = Math.round(((x + y) / (width + height)) * 255);
 
             document.body.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
+
+            const invRed = 255 - red;
+            const invGreen = 255 - green;
+            const invBlue = 255 - blue;
+
+            const visitBox = document.getElementById('visit-count');
+            visitBox.style.backgroundColor = `rgb(${invRed}, ${invGreen}, ${invBlue})`;
+
+            const brightness = (invRed * 299 + invGreen * 587 + invBlue * 114) / 1000;
+            visitBox.style.color = brightness > 128 ? 'black' : 'white';
         });
     </script>
-
-
 </body>
 </html>
