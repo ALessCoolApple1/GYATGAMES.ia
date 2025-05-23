@@ -263,9 +263,9 @@
 
             const visitBox = document.getElementById('visit-count');
             visitBox.style.backgroundColor = `rgb(${invRed}, ${invGreen}, ${invBlue})`;
+            
+            visitBox.style.color = 'black';
 
-            const brightness = (invRed * 299 + invGreen * 587 + invBlue * 114) / 1000;
-            visitBox.style.color = brightness > 128 ? 'black' : 'white';
         });
     </script>
 </body>
