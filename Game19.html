@@ -1,33 +1,88 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Redirecting...</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script>
-        // Function to check if the redirect is blocked
-        window.onload = function () {
-            // Try to redirect
-            var redirectURL = "http://82.197.92.104:2020/";
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <!-- Updated meta tag for viewport -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>I sigma tab please don't close it.</title>
+        <link rel="stylesheet" href="style.css">
+        <script>
 
-            setTimeout(function () {
-                // If not redirected, show the message
-                if (window.location.href === "about:blank" || window.location.href.indexOf("http://82.197.92.104:2020/") === -1) {
-                    document.getElementById("errorMessage").style.display = "block";
-                } else {
-                    // If redirected successfully, nothing needs to be done
+            function setCookie(name, value, days) {
+                var expires = "";
+                if (days) {
+                    var date = new Date();
+                    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                    expires = "; expires=" + date.toUTCString();
                 }
-            }, 3000); // Check if redirection has happened after 3 seconds
+                document.cookie = name + "=" + (value || "") + expires + "; path=/";
+            }
 
-            // Redirecting after 1 second to ensure the script executes
-            setTimeout(function () {
-                window.location.href = redirectURL;
-            }, 1000);
-        };
-    </script>
-</head>
-<body>
-    <h1>Redirecting...</h1>
-    <p>If you are not redirected automatically, <span id="errorMessage" style="display:none; color: red;">please check the URL box at the top, right-click the icon, and allow redirects. Then refresh the page.</span></p>
-</body>
+        
+            function getCookie(name) {
+                var nameEQ = name + "=";
+                var ca = document.cookie.split(';');
+                for (var i = 0; i < ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+                }
+                return null;
+            }
+
+    
+            var password = "2190";
+            (function passcodeprotect() {
+        
+                var accessGranted = getCookie("accessGranted");
+
+            
+                if (!accessGranted) {
+                    var passcode = prompt("Enter PassCode");
+                    if (!passcode || passcode !== password) {
+                        alert("I didn't give you this site I know you get it from looking at someone else's computer");
+                        window.close(); 
+                    } else {
+                        setCookie("accessGranted", "true", 7);
+                        alert('Good, I guess you are one of the few I gave access to');
+                    }
+                } else {
+                    alert('You are already granted access!');
+                }
+            })();
+        </script>
+        <style>
+            html, body {
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                overflow: hidden; 
+            }
+
+           
+            .iframe-container {
+                width: 100%;
+                height: 100%;
+            }
+
+            iframe {
+                width: 100%;
+                height: 100%;
+                border: none;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="iframe-container">
+            <iframe id="Tanuki Sunset" src="https://myschoolisass.github.io/ts/" title="Drive mad"></iframe>
+        </div>
+
+        <script>
+            function focusIframe() {
+                const iframe = document.getElementById('Drive mad');
+                iframe.contentWindow.focus();
+            }
+            window.addEventListener('load', focusIframe);
+        </script>
+    </body>
 </html>
